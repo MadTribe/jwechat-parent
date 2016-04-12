@@ -1,0 +1,15 @@
+uat-ugcaas-app:
+  image: java:8
+  ports:
+    - 8080:8080
+    - 8081:8081
+  volumes:
+    - $JAR_PATH/$JAR_NAME:/opt/$SERVICE_NAME/$JAR_NAME
+    - $CONFIG_PATH:/opt/$SERVICE_NAME/config
+    - ../public:/opt/$SERVICE_NAME/public
+  environment:
+    PUBLIC_PUBLIC: "cats"
+    LOCAL_PUBLIC : "dogs"
+  working_dir: /opt/$SERVICE_NAME
+  command: >
+    java -jar $JAR_NAME server /opt/$SERVICE_NAME/config/$CONFIG_FILE

@@ -1,0 +1,23 @@
+version: $env:SERVICE_VERSION:0.0.1
+weChatConfiguration:
+  weChatAppId: $env:WECHAT_APP_ID:wx856cd1b5d83c8ca0
+  weChatAppSecret: $env:WECHAT_APP_SECRET:f56385cfa1c9b1fdeb989913b66fae98
+  weChatToken: $env:WECHAT_APP_TOKEN:12345
+
+publicAddress: $env:PUBLIC_PUBLIC:http://52.68.77.172:12345/public/
+publicPath: $env:LOCAL_PUBLIC:/Users/paul.smout/IdeaProjects/WechatTestBed/public/
+
+# Logging settings.
+logging:
+    # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+    level: INFO
+
+    # Logger-specific levels.
+    loggers:
+      # Sets the level for 'com.example.app' to DEBUG.
+      io.dropwizard: INFO
+      org.hibernate: INFO
+      org.madtribe : DEBUG
+
+    appenders:
+      - type: console
