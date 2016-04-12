@@ -1,0 +1,1 @@
+package org.madtribe.wechat.messages;
