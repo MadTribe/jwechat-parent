@@ -1,11 +1,11 @@
 version: $env:SERVICE_VERSION:0.0.1
 weChatConfiguration:
-  weChatAppId: $env:WECHAT_APP_ID:wx856cd1b5d83c8ca0
-  weChatAppSecret: $env:WECHAT_APP_SECRET:f56385cfa1c9b1fdeb989913b66fae98
-  weChatToken: $env:WECHAT_APP_TOKEN:12345
+  weChatAppId: $env:WECHAT_APP_ID:
+  weChatAppSecret: $env:WECHAT_APP_SECRET:
+  weChatToken: $env:WECHAT_APP_TOKEN:
 
-publicAddress: $env:PUBLIC_PUBLIC:http://52.68.77.172:12345/public/
-publicPath: $env:LOCAL_PUBLIC:/Users/paul.smout/IdeaProjects/WechatTestBed/public/
+publicAddress: $env:PUBLIC_PUBLIC:
+publicPath: $env:LOCAL_PUBLIC:
 
 # Logging settings.
 logging:
