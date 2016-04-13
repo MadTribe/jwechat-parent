@@ -18,9 +18,9 @@ export CONFIG_PATH=$SERVICE_HOME
 export DOCKER_FOLDER=$SERVICE_HOME/docker
 
 
-#pushd $SERVICE_HOME
-#mvn package
-#popd
+pushd $SERVICE_HOME/..
+mvn package
+popd
 
 docker-compose -f $DOCKER_FOLDER/docker-compose.yml stop
 docker-compose -f $DOCKER_FOLDER/docker-compose.yml  rm -f
