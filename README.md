@@ -36,7 +36,7 @@ TODO - Steps to run service in sandbox via docker.
 Basically go to jwechat-service/docker
 run compile-and-run.sh
 run tunnel-to-docker.sh
-configure AppID, AppSecret and callback url in Wechat backend (these are found in jwechat-service/dev-config.yml )
+configure AppID, AppSecret in jwechat-service/dev-config.yml and callback url and token in Wechat backend.
 
 
 

@@ -1,4 +1,4 @@
-uat-ugcaas-app:
+example-wechat-app:
   image: java:8
   ports:
     - 8080:8080
@@ -8,8 +8,9 @@ uat-ugcaas-app:
     - $CONFIG_PATH:/opt/$SERVICE_NAME/config
     - ../public:/opt/$SERVICE_NAME/public
   environment:
-    PUBLIC_PUBLIC: "cats"
-    LOCAL_PUBLIC : "dogs"
+    SAMPLE_WECHAT_APP_ID: $SAMPLE_WECHAT_APP_ID
+    SAMPLE_WECHAT_APP_SECRET: $SAMPLE_WECHAT_APP_SECRET
+    SAMPLE_WECHAT_APP_TOKEN: $SAMPLE_WECHAT_APP_TOKEN
   working_dir: /opt/$SERVICE_NAME
   command: >
     java -jar $JAR_NAME server /opt/$SERVICE_NAME/config/$CONFIG_FILE

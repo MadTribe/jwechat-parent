@@ -6,8 +6,7 @@ import com.google.common.base.Optional;
 import com.google.common.hash.Hashing;
 import com.google.inject.Inject;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
-import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
-import org.madtribe.wechat.core.messages.inbound.response.InboundResponse;
+import org.madtribe.wechat.core.messagehandlers.WeChatInboundRequestReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +36,8 @@ public class WeChatEntryPoint {
     @Inject
     private WeChatConfiguration weChatConfiguration;
 
+    @Inject
+    private WeChatInboundRequestReader weChatMessageHandler;
 
     /**
      * This end point is called during the initial validation of the configuration on Wechat.
