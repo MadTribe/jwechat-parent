@@ -11,60 +11,40 @@ import java.time.LocalDateTime;
 /**
  * Created by paul.smout on 02/04/2016.
  */
-@XmlRootElement
 public class InboundRequest<X extends InboundPayload> {
     private static final Logger LOGGER = LoggerFactory.getLogger(InboundRequest.class);
 
-    @XmlElement
     private long id;
-    @XmlElement
     private String sender;
-    @XmlElement
     private String recipient;
-    @XmlElement
     private LocalDateTime createTime;
-    @XmlElement
     private InboundPayload payload;
 
-    public InboundRequest(String raw){
-        LOGGER.debug("Message Received {}", raw);
-
+    public InboundRequest(long id, String sender, String recipient, LocalDateTime createTime, InboundPayload payload) {
+        this.id = id;
+        this.sender = sender;
+        this.recipient = recipient;
+        this.createTime = createTime;
+        this.payload = payload;
     }
 
-    /**
-     * Gets the unique id of this message.
-     */
-    long getId() {
-        return 0;
+    public long getId() {
+        return id;
     }
 
-    /**
-     * @return the senders openid
-     */
-    String getSender() {
-        return null;
+    public String getSender() {
+        return sender;
     }
 
-    /**
-     * @return the openid of the recipient
-     */
-    String getRecipient() {
-        return null;
+    public String getRecipient() {
+        return recipient;
     }
 
-    /**
-     * Gets when this message was created.
-     */
-    LocalDateTime getCreateTime() {
-        return null;
+    public LocalDateTime getCreateTime() {
+        return createTime;
     }
 
-    /**
-     * @return the message payload.
-     */
-    InboundPayload getPayload() {
-        return null;
+    public InboundPayload getPayload() {
+        return payload;
     }
-
-
 }

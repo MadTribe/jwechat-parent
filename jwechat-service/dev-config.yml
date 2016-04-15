@@ -1,11 +1,11 @@
 version: $env:SERVICE_VERSION:0.0.1
 weChatConfiguration:
-  weChatAppId: $env:WECHAT_APP_ID:
-  weChatAppSecret: $env:WECHAT_APP_SECRET:
-  weChatToken: $env:WECHAT_APP_TOKEN:
+  weChatAppId: $env:SAMPLE_WECHAT_APP_ID
+  weChatAppSecret: $env:SAMPLE_WECHAT_APP_SECRET
+  weChatToken: $env:SAMPLE_WECHAT_APP_TOKEN
 
-publicAddress: $env:PUBLIC_PUBLIC:
-publicPath: $env:LOCAL_PUBLIC:
+publicAddress: $env:PUBLIC_PUBLIC
+publicPath: $env:LOCAL_PUBLIC
 
 # Logging settings.
 logging:
