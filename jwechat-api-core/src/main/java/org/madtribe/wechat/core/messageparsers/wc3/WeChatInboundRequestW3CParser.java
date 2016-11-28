@@ -20,6 +20,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
 
 /**
  * Created by paul.smout on 15/04/2016.
@@ -44,17 +45,27 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
 
             Element element = document.getDocumentElement();
 
-            LOGGER.info("Root Element is {}", element);
+            LOGGER.info("Root Element is {}", document.toString());
+            
+            Node messageId = getElementByName(element, HeaderFieldNames.MsgId.name());
             Node fromUserName = getElementByName(element, HeaderFieldNames.FromUserName.name());
+            Node createTime = getElementByName(element, HeaderFieldNames.CreateTime.name());
 
-            LOGGER.debug("From User is {}", fromUserName.getTextContent());
+            if (LOGGER.isDebugEnabled()){
+		        LOGGER.debug("MsgId = {}, FromUser = {}, CreateTime = {} ", 
+		        			 messageId.getTextContent(),
+		        			 fromUserName.getTextContent(),
+		        			 createTime.getTextContent());
+            }
 
-            parsed = new InboundRequest(-1,
+            parsed = new InboundRequest(Long.valueOf(messageId.getTextContent()),
                                         fromUserName.getTextContent(),
                                         null,
-                                        null,
+                                        Instant.ofEpochMilli(Long.valueOf(createTime.getTextContent())),
                                         null);
-
+        } catch (NumberFormatException e) {
+            LOGGER.error("Error parsing numerical field", e );
+            throw new WebApplicationException(e);   
         } catch (ParserConfigurationException e) {
             LOGGER.error("Error creating parser", e );
             throw new WebApplicationException(e);

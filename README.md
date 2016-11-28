@@ -46,6 +46,13 @@ run tunnel-to-docker.sh
 configure AppID, AppSecret in jwechat-service/dev-config.yml and callback url and token in Wechat backend.
 
 
+## Development Methodology
+The project uses a Test Driven Development approach. This is highly useful for projects that may see intermittent development. 
 
+In Phase one  most development will be done on the master branch. 
+Before the project is useful to anyone there will normally be one test present in each commit.
 
+The purposes of checking in a failing test are as follows:
+1. It prevents someone from wasting time using the when it is not usable. Most casual users will run mvn package and see a test failure and then move on.
+2. It is a clear indication to developers on where to begin work. 
 

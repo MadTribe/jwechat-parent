@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 /**
@@ -17,10 +19,10 @@ public class InboundRequest<X extends InboundPayload> {
     private long id;
     private String sender;
     private String recipient;
-    private LocalDateTime createTime;
+    private Instant createTime;
     private InboundPayload payload;
 
-    public InboundRequest(long id, String sender, String recipient, LocalDateTime createTime, InboundPayload payload) {
+    public InboundRequest(long id, String sender, String recipient, Instant createTime, InboundPayload payload) {
         this.id = id;
         this.sender = sender;
         this.recipient = recipient;
@@ -40,7 +42,7 @@ public class InboundRequest<X extends InboundPayload> {
         return recipient;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Instant getCreateTime() {
         return createTime;
     }
 
