@@ -1,1 +1,1 @@
-package org.madtribe.wechat.messages;
+package org.madtribe.wechat.core.messages;

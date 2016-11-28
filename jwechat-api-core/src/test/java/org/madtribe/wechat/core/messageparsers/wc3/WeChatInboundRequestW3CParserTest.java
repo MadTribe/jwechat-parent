@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
 
 import java.io.InputStream;
-
+import java.time.Instant;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
@@ -31,9 +31,11 @@ public class WeChatInboundRequestW3CParserTest {
 
         assertThat(inboundRequest, notNullValue());
         assertThat(inboundRequest.getSender(), equalTo("or4wgt3dwZQEXXyQxTGJBUlgYOJY") );
-
+        assertThat(inboundRequest.getId(), equalTo(6273080811757834052L) );
+        assertThat(inboundRequest.getCreateTime(), equalTo(Instant.ofEpochMilli(1460565443L)) );
+        
         // FIX This test next
-        assertThat(inboundRequest.getId(), equalTo("6273080811757834052") );
+        assertThat(inboundRequest.getPayload(), notNullValue());
     }
 
     private InputStream loadFixtureAsInputStream(String s) {
