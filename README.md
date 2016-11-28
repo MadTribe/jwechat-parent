@@ -11,6 +11,13 @@ Fail fast design.
 A major intention is to keep the API up to date with the latest Wechat features.
 
 
+## Building the Project
+The project uses maven so Java8 and Maven3 should  be installed.
+
+In the project folder type:
+
+mvn package
+
 ## Kicking the tires.
 Since the project is still in its early days there are a few more manual steps needed than is desirable. Will fix this as we go.
 The Jwechat service project is provided as an example wechat service you would normally just use the jwechat-api-core in your own projects.
