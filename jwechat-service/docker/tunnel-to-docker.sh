@@ -5,5 +5,7 @@ echo $DOCKER_IP
 
 echo "Configure Wechat callback to point to <tunnel url below>/wxcallback"
 
+alias node=nodejs
+
 lt -l $DOCKER_IP -p 8080
 

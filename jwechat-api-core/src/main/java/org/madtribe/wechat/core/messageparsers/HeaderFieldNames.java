@@ -6,5 +6,5 @@ package org.madtribe.wechat.core.messageparsers;
  * Inbound message format.
  */
 public enum HeaderFieldNames {
-	MsgId, CreateTime, MsgType, FromUserName;
+	MsgId, CreateTime, MsgType, FromUserName, Content;
 }

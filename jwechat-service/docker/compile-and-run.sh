@@ -9,7 +9,6 @@ pushd "$PWD/.." 1>/dev/null
 export SERVICE_HOME=`pwd`
 popd 1>/dev/null
 
-PWD
 
 export SERVICE_NAME=jwechat-service
 export SERVICE_VERSION=1.0-SNAPSHOT
@@ -21,7 +20,7 @@ export DOCKER_FOLDER=$SERVICE_HOME/docker
 
 
 pushd $SERVICE_HOME/..
-mvn package
+mvn package -DskipTests=true
 popd
 
 docker-compose -f $DOCKER_FOLDER/docker-compose.yml stop
