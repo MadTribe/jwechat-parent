@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -24,6 +25,7 @@ public class WeChatInboundRequestReader implements MessageBodyReader<InboundRequ
     private static final Logger LOGGER = LoggerFactory.getLogger(WeChatInboundRequestReader.class);
     private WeChatInboundMessageParser weChatInboundMessageParser;
 
+    @Inject
     public WeChatInboundRequestReader(WeChatInboundMessageParser weChatInboundMessageParser) {
         this.weChatInboundMessageParser = weChatInboundMessageParser;
     }

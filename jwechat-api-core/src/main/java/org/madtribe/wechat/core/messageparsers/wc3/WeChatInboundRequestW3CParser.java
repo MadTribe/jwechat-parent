@@ -15,6 +15,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.inject.Inject;
 import javax.management.modelmbean.XMLParseException;
 import javax.ws.rs.WebApplicationException;
 import javax.xml.parsers.DocumentBuilder;
@@ -36,6 +37,8 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
     private final DocumentBuilderFactory factory;
     
     private final InboundPayloadParserRegistry inboundPayLoadParserRegistry;
+    
+    @Inject
     public WeChatInboundRequestW3CParser(final InboundPayloadParserRegistry inboundPayLoadParserRegistry){
         factory = DocumentBuilderFactory.newInstance();
         this.inboundPayLoadParserRegistry = inboundPayLoadParserRegistry;
