@@ -85,7 +85,7 @@ public class WeChatEntryPoint {
 
         if (validateSignature(signatureOptional,timestampOptional,nonceOptional)){
             response = Response.ok().build();
-            // TODO Handle This
+            
         }
 
         return response;
@@ -105,7 +105,7 @@ public class WeChatEntryPoint {
             String timestamp = timestampOptional.get();
             String nonce = nonceOptional.get();
 
-            LOGGER.debug("signature = {} timestamp={} nonce={} echostr={} wechatconfig ={}", signature, timestamp, nonce, weChatConfiguration.getWeChatToken());
+            LOGGER.debug("signature = {} timestamp={} nonce={} wechatconfig ={}", signature, timestamp, nonce, weChatConfiguration.getWeChatToken());
 
             // Sort Parameters Alphabetically
             List<String> params = Arrays.asList(weChatConfiguration.getWeChatToken(), timestamp, nonce);
@@ -118,6 +118,7 @@ public class WeChatEntryPoint {
             String codedString = sha1OfString(concatenated);
 
 
+            LOGGER.debug("Supplied signature is {} should be {}", signature, codedString);
             // Compare with signature and if the same return echo string.
             if (codedString.equals(signature)){
                 valid = true;
@@ -125,7 +126,7 @@ public class WeChatEntryPoint {
         }
         LOGGER.debug("signature valid is {}", valid);
         return valid;
-    }
+     }
 
     private String sha1OfString(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         return Hashing.sha1().hashString( input, Charsets.UTF_8 ).toString();
