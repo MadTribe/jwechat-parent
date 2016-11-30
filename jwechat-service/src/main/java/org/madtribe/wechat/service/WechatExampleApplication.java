@@ -34,6 +34,10 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
     public void run(WechatExampleConfig configuration, Environment environment) throws Exception {
         try {
             guiceMain = new GuiceMain(environment, configuration);
+            
+            
+            System.err.println(">>>>>>>>>>>>>>>>>>" + configuration.getWeChatConfiguration().getWeChatToken());
+            
             environment.jersey().register(new RootResource(configuration));
             environment.jersey().register(guiceMain.get(WeChatEntryPoint.class));
         } catch (Throwable t){
