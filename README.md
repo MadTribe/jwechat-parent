@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/MadTribe/jwechat-parent.svg?branch=master)](https://travis-ci.org/MadTribe/jwechat-parent)
 # Description
 
 This project intends to provide a flexible and simple Java API for interaction with Wechat Services
