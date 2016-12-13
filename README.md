@@ -48,13 +48,41 @@ run tunnel-to-docker.sh
 configure AppID, AppSecret in jwechat-service/dev-config.yml and callback url and token in Wechat backend.
 
 
-## Development Methodology
-The project uses a Test Driven Development approach. This is highly useful for projects that may see intermittent development. 
+## Example Code
 
-In Phase one  most development will be done on the master branch. 
+See jwechat-service/src/main/java/org/madtribe/wechat/service/WechatExampleApplication.java
+
+For a simple illustration of how messages from WeChat can be handled.
+
+Current version on handles text messages. 
+
+```
+
+@Override
+public void run(WechatExampleConfig configuration, Environment environment) throws Exception {
+
+    WeChatEntryPoint entryPoint = configureEntryPoint(configuration, environment);
+
+    // This is where you can register your WeChat message hanlders.
+    // These can obviously be put in other classes as required.
+    entryPoint.handle("text", (InboundRequest message) -> {
+         return Response.ok("Client Code has received a message: " + message).build();
+    });
+
+
+}
+
+
+```
+
+
+
+## Development Methodology
+The project uses a Test Driven Development approach. This is highly useful for projects that may see intermittent development.
+
+In Phase one  most development will be done on the master branch.
 Before the project is useful to anyone there will normally be one test present in each commit.
 
 The purposes of checking in a failing test are as follows:
 1. It prevents someone from wasting time using the when it is not usable. Most casual users will run mvn package and see a test failure and then move on.
-2. It is a clear indication to developers on where to begin work. 
-
+2. It is a clear indication to developers on where to begin work.
