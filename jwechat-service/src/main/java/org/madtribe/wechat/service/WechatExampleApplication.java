@@ -5,9 +5,13 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import javax.ws.rs.core.Response;
+
+import org.madtribe.wechat.core.container.JWeChatContanerMain;
 import org.madtribe.wechat.core.messagehandlers.WeChatInboundRequestReader;
+import org.madtribe.wechat.core.messages.TextMessage;
+import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
 import org.madtribe.wechat.core.resources.WeChatEntryPoint;
-import org.madtribe.wechat.service.container.GuiceMain;
 import org.madtribe.wechat.service.resources.RootResource;
 
 
@@ -15,7 +19,7 @@ import org.madtribe.wechat.service.resources.RootResource;
  * Created by paul.smout on 04/04/2016.
  */
 public class WechatExampleApplication extends Application<WechatExampleConfig> {
-    private GuiceMain guiceMain;
+    private JWeChatContanerMain guiceMain;
 
     public static void main(String[] args) throws Exception {
 
@@ -35,14 +39,23 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
     @Override
     public void run(WechatExampleConfig configuration, Environment environment) throws Exception {
         try {
-            guiceMain = new GuiceMain(environment, configuration);
-            
-            
-            System.err.println(">>>>>>>>>>>>>>>>>>" + configuration.getWeChatConfiguration().getWeChatToken());
-            
-            environment.jersey().register(guiceMain.get(WeChatInboundRequestReader.class));
+
+
             environment.jersey().register(new RootResource(configuration));
-            environment.jersey().register(guiceMain.get(WeChatEntryPoint.class));
+
+
+            guiceMain = new JWeChatContanerMain( configuration.getWeChatConfiguration());
+            WeChatEntryPoint entryPoint = guiceMain.get(WeChatEntryPoint.class);
+            environment.jersey().register(guiceMain.get(WeChatInboundRequestReader.class));
+            environment.jersey().register(entryPoint);
+
+            entryPoint.handle("text", (InboundRequest message) -> {
+            	System.err.println("Client Code has received a message: " + message);
+
+            	return Response.ok("Client Code has received a message: " + message).build();
+            });
+
+
         } catch (Throwable t){
             t.printStackTrace();
         }

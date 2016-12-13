@@ -1,24 +1,26 @@
-package org.madtribe.wechat.service.container;
+package org.madtribe.wechat.core.container;
 
+
+import org.madtribe.wechat.core.configuration.WeChatConfiguration;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import io.dropwizard.setup.Environment;
-import org.madtribe.wechat.service.WechatExampleConfig;
+
+
 
 /**
  * Generic Guice setup class.
  * Just like the application class itself, this should not be used in other apps.
  */
-public final class GuiceMain {
+public final class JWeChatContanerMain {
     private  Injector instance;
 
-    public GuiceMain(Environment environment,
-                     final WechatExampleConfig configuration) throws ClassNotFoundException {
+    public JWeChatContanerMain(
+                     final WeChatConfiguration configuration) throws ClassNotFoundException {
         init( configuration);
     }
 
-    private synchronized  void init(final WechatExampleConfig configuration) throws ClassNotFoundException {
+    private synchronized  void init(final WeChatConfiguration configuration) throws ClassNotFoundException {
         if (instance != null) {
             return;
         }

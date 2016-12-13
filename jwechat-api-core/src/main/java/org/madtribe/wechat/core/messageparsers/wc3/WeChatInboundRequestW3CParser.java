@@ -1,6 +1,7 @@
 package org.madtribe.wechat.core.messageparsers.wc3;
 
 
+
 import org.madtribe.wechat.core.constants.HeaderFieldNames;
 import org.madtribe.wechat.core.messageparsers.InboundPayloadParserRegistry;
 import org.madtribe.wechat.core.messages.inbound.request.InboundPayload;
@@ -79,6 +80,7 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
 	            parsed = new InboundRequest(Long.valueOf(messageId.getTextContent()),
 	                                        fromUserName.getTextContent(),
 	                                        null,
+	                                        type.getTextContent(),
 	                                        Instant.ofEpochMilli(Long.valueOf(createTime.getTextContent())),
 	                                        payload.orElseThrow( () -> new WebApplicationException()));
             } 
