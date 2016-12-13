@@ -4,6 +4,8 @@ import de.thomaskrille.dropwizard.environment_configuration.EnvironmentConfigura
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+
+import org.madtribe.wechat.core.messagehandlers.WeChatInboundRequestReader;
 import org.madtribe.wechat.core.resources.WeChatEntryPoint;
 import org.madtribe.wechat.service.container.GuiceMain;
 import org.madtribe.wechat.service.resources.RootResource;
@@ -38,6 +40,7 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
             
             System.err.println(">>>>>>>>>>>>>>>>>>" + configuration.getWeChatConfiguration().getWeChatToken());
             
+            environment.jersey().register(guiceMain.get(WeChatInboundRequestReader.class));
             environment.jersey().register(new RootResource(configuration));
             environment.jersey().register(guiceMain.get(WeChatEntryPoint.class));
         } catch (Throwable t){
