@@ -1,8 +1,8 @@
 package org.madtribe.wechat.core.messagehandlers;
 
-import org.madtribe.wechat.core.messageparsers.MessageParsingException;
-import org.madtribe.wechat.core.messageparsers.WeChatInboundMessageParser;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
+import org.madtribe.wechat.core.streamparsers.MessageParsingException;
+import org.madtribe.wechat.core.streamparsers.WeChatInboundMessageParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
