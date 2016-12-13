@@ -2,6 +2,7 @@ package org.madtribe.wechat.core.resources;
 
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.hash.Hashing;
 import com.google.inject.Inject;
@@ -17,7 +18,9 @@ import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Collections.sort;
 
@@ -83,8 +86,15 @@ public class WeChatEntryPoint {
         Response response = NOT_AUTHORIZED;
 
         if (validateSignature(signatureOptional,timestampOptional,nonceOptional)){
-            response = Response.ok().build();
-            
+            String typeKey = request.getType();
+            LOGGER.debug("Message Type: " + typeKey);
+
+            Function<InboundRequest,Response> handler = handlers.get(typeKey);
+            LOGGER.debug("Message handler: " + handler);
+            if (handler != null){
+              response = handler.apply(request);
+            }
+
         }
 
         return response;
@@ -130,6 +140,15 @@ public class WeChatEntryPoint {
     private String sha1OfString(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         return Hashing.sha1().hashString( input, Charsets.UTF_8 ).toString();
     }
+
+    private Map<String, Function<InboundRequest,Response>> handlers = new HashMap<String, Function<InboundRequest, Response>>();
+
+	public void handle(String messageKey, Function<InboundRequest,Response> messageHandler) {
+		handlers.put(messageKey, messageHandler);
+	}
+
+
+
 
 
 }
