@@ -19,6 +19,8 @@ import java.lang.reflect.Type;
 
 /**
  * Created by paul.smout on 02/04/2016.
+ * 
+ * 
  */
 public class WeChatInboundRequestReader implements MessageBodyReader<InboundRequest> {
 

@@ -19,15 +19,17 @@ public class InboundRequest<X extends InboundPayload> {
     private long id;
     private String sender;
     private String recipient;
+    private String type;
     private Instant createTime;
     private InboundPayload payload;
 
-    public InboundRequest(long id, String sender, String recipient, Instant createTime, InboundPayload payload) {
+    public InboundRequest(long id, String sender, String recipient, String type, Instant createTime, InboundPayload payload) {
         this.id = id;
         this.sender = sender;
         this.recipient = recipient;
         this.createTime = createTime;
         this.payload = payload;
+        this.type = type;
     }
 
     public long getId() {
@@ -46,16 +48,22 @@ public class InboundRequest<X extends InboundPayload> {
         return createTime;
     }
 
+	public String getType() {
+		return type;
+	}
+
     public InboundPayload getPayload() {
         return payload;
     }
 
 	@Override
 	public String toString() {
-		return "InboundRequest [id=" + id + ", sender=" + sender + ", recipient=" + recipient + ", createTime="
+		return "InboundRequest [id=" + id + ", sender=" + sender + ", recipient=" + recipient + "type= " + type + ", createTime="
 				+ createTime + ", payload=" + payload + "]";
 	}
-    
-    
-    
+
+
+
+
+
 }
