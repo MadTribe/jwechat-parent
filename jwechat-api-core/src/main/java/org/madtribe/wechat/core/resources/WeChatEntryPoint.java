@@ -7,6 +7,7 @@ import com.google.common.hash.Hashing;
 import com.google.inject.Inject;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
 import org.madtribe.wechat.core.messagehandlers.WeChatInboundRequestReader;
+import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +37,6 @@ public class WeChatEntryPoint {
     @Inject
     private WeChatConfiguration weChatConfiguration;
 
-    @Inject
-    private WeChatInboundRequestReader weChatMessageHandler;
 
     /**
      * This end point is called during the initial validation of the configuration on Wechat.
@@ -79,8 +78,8 @@ public class WeChatEntryPoint {
     public Response onMessage(@QueryParam("signature") final Optional<String> signatureOptional,
                               @QueryParam("timestamp") final Optional<String> timestampOptional,
                               @QueryParam("nonce") final Optional<String> nonceOptional,
-                              final String request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        LOGGER.info(request);
+                              final InboundRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        LOGGER.info("Message Received: " + request.toString());
         Response response = NOT_AUTHORIZED;
 
         if (validateSignature(signatureOptional,timestampOptional,nonceOptional)){

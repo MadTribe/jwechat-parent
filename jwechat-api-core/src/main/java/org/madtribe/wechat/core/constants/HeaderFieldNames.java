@@ -1,4 +1,4 @@
-package org.madtribe.wechat.core.messageparsers;
+package org.madtribe.wechat.core.constants;
 
 /**
  * Created by paul.smout on 15/04/2016.

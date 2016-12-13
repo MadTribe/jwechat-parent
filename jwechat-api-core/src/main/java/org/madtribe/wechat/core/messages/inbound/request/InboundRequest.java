@@ -49,4 +49,13 @@ public class InboundRequest<X extends InboundPayload> {
     public InboundPayload getPayload() {
         return payload;
     }
+
+	@Override
+	public String toString() {
+		return "InboundRequest [id=" + id + ", sender=" + sender + ", recipient=" + recipient + ", createTime="
+				+ createTime + ", payload=" + payload + "]";
+	}
+    
+    
+    
 }

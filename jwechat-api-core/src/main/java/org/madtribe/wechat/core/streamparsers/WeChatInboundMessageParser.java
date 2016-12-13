@@ -1,4 +1,4 @@
-package org.madtribe.wechat.core.messageparsers;
+package org.madtribe.wechat.core.streamparsers;
 
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
 import org.xml.sax.SAXException;

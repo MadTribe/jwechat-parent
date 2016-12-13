@@ -1,12 +1,12 @@
 package org.madtribe.wechat.core.messageparsers.wc3;
 
 
-import org.madtribe.wechat.core.messageparsers.HeaderFieldNames;
+import org.madtribe.wechat.core.constants.HeaderFieldNames;
 import org.madtribe.wechat.core.messageparsers.InboundPayloadParserRegistry;
-import org.madtribe.wechat.core.messageparsers.MessageParsingException;
-import org.madtribe.wechat.core.messageparsers.WeChatInboundMessageParser;
 import org.madtribe.wechat.core.messages.inbound.request.InboundPayload;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
+import org.madtribe.wechat.core.streamparsers.MessageParsingException;
+import org.madtribe.wechat.core.streamparsers.WeChatInboundMessageParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -33,6 +33,8 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeChatInboundRequestW3CParser.class);
 
+    private static String NO_PAYLOAD_PARSSER_ERROR = "Cannot find parser for payload.";
+    
     // create a new DocumentBuilderFactory
     private final DocumentBuilderFactory factory;
     
@@ -65,20 +67,20 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
             Optional<InboundPayloadParser> payloadParserOpt = inboundPayLoadParserRegistry.lookup(type.getTextContent() );
             
             {
-            Optional<InboundPayload> payload = payloadParserOpt.orElseThrow( () -> new WebApplicationException()).parse(content);
-            
-            if (LOGGER.isDebugEnabled()){
-		        LOGGER.debug("MsgId = {}, FromUser = {}, CreateTime = {} ", 
-		        			 messageId.getTextContent(),
-		        			 fromUserName.getTextContent(),
-		        			 createTime.getTextContent());
-            }
-
-            parsed = new InboundRequest(Long.valueOf(messageId.getTextContent()),
-                                        fromUserName.getTextContent(),
-                                        null,
-                                        Instant.ofEpochMilli(Long.valueOf(createTime.getTextContent())),
-                                        payload.orElseThrow( () -> new WebApplicationException()));
+	            Optional<InboundPayload> payload = payloadParserOpt.orElseThrow( () -> new WebApplicationException()).parse(content);
+	            
+	            if (LOGGER.isDebugEnabled()){
+			        LOGGER.debug("MsgId = {}, FromUser = {}, CreateTime = {} ", 
+			        			 messageId.getTextContent(),
+			        			 fromUserName.getTextContent(),
+			        			 createTime.getTextContent());
+	            }
+	
+	            parsed = new InboundRequest(Long.valueOf(messageId.getTextContent()),
+	                                        fromUserName.getTextContent(),
+	                                        null,
+	                                        Instant.ofEpochMilli(Long.valueOf(createTime.getTextContent())),
+	                                        payload.orElseThrow( () -> new WebApplicationException()));
             } 
         } catch (NumberFormatException e) {
             LOGGER.error("Error parsing numerical field", e );
