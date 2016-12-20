@@ -18,7 +18,17 @@ The project uses maven so Java8 and Maven3 should  be installed.
 
 In the project folder type:
 
-mvn package
+mvn clean package
+
+In the /jwechat-service/docker folder there is a script: **compile-and-run.sh**
+Which will build the project and deploy to a a local docker service. 
+
+To run this script you need to set the following environment variables:
+SAMPLE_WECHAT_APP_ID
+SAMPLE_WECHAT_APP_SECRET
+SAMPLE_WECHAT_APP_TOKEN
+
+The script is developed to run in bash on OS-X or Linux but a Windows version should be easy to adapt. 
 
 ## Kicking the tires.
 Since the project is still in its early days there are a few more manual steps needed than is desirable. Will fix this as we go.
