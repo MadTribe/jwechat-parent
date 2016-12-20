@@ -20,8 +20,9 @@ In the project folder you can build the jar file with:
 
 mvn clean package
 
+You can then run the example service with:
 
-
+java -jar jwechat-service-example/target/jwechat-service-example-1.0-SNAPSHOT.jar server jwechat-service-example/dev-config.yml
 
 
 In the /jwechat-service/docker folder there is a script: **compile-and-run.sh**
