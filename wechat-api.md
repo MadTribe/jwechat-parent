@@ -22,6 +22,7 @@ These are sent by a user to the service account.
 
 ### Inbound Text Message
 
+Supported
 
 	 <xml>
 		 <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -35,6 +36,7 @@ These are sent by a user to the service account.
 
 ### Inbound Picture Message
 
+Basic Support
 
 	 <xml>
 		 <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -48,6 +50,8 @@ These are sent by a user to the service account.
 
 
 ### Inbound Voice Message
+
+Not Supported Yet
 
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -63,6 +67,8 @@ These are sent by a user to the service account.
 
 ### Inbound Short Video Message
 	
+Not Supported Yet	
+	
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
 		<FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -74,6 +80,8 @@ These are sent by a user to the service account.
 	</xml>
 	
 ### Inbound Geo Location Message
+	
+Not Supported Yet
 	
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -88,6 +96,8 @@ These are sent by a user to the service account.
 	</xml> 
 
 ### Inbound Link Message
+
+Not Supported Yet
 
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -105,6 +115,8 @@ These are sent by a user to the service account.
 
 These are sent by a wechat when a user performs a certain action with the account
 
+Not Supported Yet
+
 ### Subscribe 
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -116,6 +128,8 @@ These are sent by a wechat when a user performs a certain action with the accoun
 	
 ### SCAN QR CODE to follow account 
 
+Not Supported Yet
+
 	<xml><ToUserName><![CDATA[toUser]]></ToUserName>
 		<FromUserName><![CDATA[FromUser]]></FromUserName>
 		<CreateTime>123456789</CreateTime>
@@ -126,6 +140,8 @@ These are sent by a wechat when a user performs a certain action with the accoun
 	</xml>
 	
 ### Pre-existing user scans QR code
+
+Not Supported Yet
 
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -140,6 +156,8 @@ These are sent by a wechat when a user performs a certain action with the accoun
 	
 ### User report location event
 
+Not Supported Yet
+
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
 		<FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -153,6 +171,8 @@ These are sent by a wechat when a user performs a certain action with the accoun
 	
 ### User Clicks Menu Event 
 
+Not Supported Yet
+
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
 		<FromUserName><![CDATA[FromUser]]></FromUserName>
@@ -164,6 +184,8 @@ These are sent by a wechat when a user performs a certain action with the accoun
 	
 ### User Clicks Menu Link Event
 
+Not Supported Yet
+
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
 		<FromUserName><![CDATA[FromUser]]></FromUserName>
@@ -172,3 +194,9 @@ These are sent by a wechat when a user performs a certain action with the accoun
 		<Event><![CDATA[VIEW]]></Event>
 		<EventKey><![CDATA[www.qq.com]]></EventKey>
 	</xml>
+	
+	
+	
+# Everything Else
+
+Not Supported
