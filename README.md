@@ -24,8 +24,8 @@ In the /jwechat-service/docker folder there is a script: **compile-and-run.sh**
 Which will build the project and deploy to a a local docker service. 
 
 To run this script you need to set the following environment variables:
-SAMPLE_WECHAT_APP_ID
-SAMPLE_WECHAT_APP_SECRET
+SAMPLE_WECHAT_APP_ID, 
+SAMPLE_WECHAT_APP_SECRET, 
 SAMPLE_WECHAT_APP_TOKEN
 
 The script is developed to run in bash on OS-X or Linux but a Windows version should be easy to adapt. 
