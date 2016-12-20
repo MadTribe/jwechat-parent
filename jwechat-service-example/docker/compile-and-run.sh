@@ -6,7 +6,7 @@ PWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $PWD/env.sh
 
 pushd $PWD/.. 1>/dev/null
-mvn clean 
+mvn clean
 popd 1>/dev/null
 
 pushd "$PWD/.." 1>/dev/null
@@ -14,7 +14,7 @@ export SERVICE_HOME=`pwd`
 popd 1>/dev/null
 
 
-export SERVICE_NAME=jwechat-service
+export SERVICE_NAME=jwechat-service-example
 export SERVICE_VERSION=1.0-SNAPSHOT
 export JAR_PATH=$SERVICE_HOME/target/
 export JAR_NAME="$SERVICE_NAME-$SERVICE_VERSION.jar"

@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>jwechat-api-core</module>
-        <module>jwechat-service</module>
+        <module>jwechat-service-example</module>
     </modules>
     <properties>
         <dom4j.version>1.6.1</dom4j.version>
