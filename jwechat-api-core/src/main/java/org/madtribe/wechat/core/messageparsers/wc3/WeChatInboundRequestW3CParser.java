@@ -3,6 +3,7 @@ package org.madtribe.wechat.core.messageparsers.wc3;
 
 
 import org.madtribe.wechat.core.constants.HeaderFieldNames;
+import org.madtribe.wechat.core.messageparsers.InboundPayloadParser;
 import org.madtribe.wechat.core.messageparsers.InboundPayloadParserRegistry;
 import org.madtribe.wechat.core.messages.inbound.request.InboundPayload;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
@@ -48,8 +49,8 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
     }
 
     @Override
-    public InboundRequest parse(InputStream inputStream) throws IOException, MessageParsingException {
-        InboundRequest parsed = null;
+    public Optional<InboundRequest> parse(InputStream inputStream) throws IOException, MessageParsingException {
+        Optional<InboundRequest> parsed = Optional.<InboundRequest>empty();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
@@ -63,12 +64,12 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
             Node fromUserName = getElementByName(element, HeaderFieldNames.FromUserName.name());
             Node createTime = getElementByName(element, HeaderFieldNames.CreateTime.name());
             Node type = getElementByName(element, HeaderFieldNames.MsgType.name());
-            Node content = getElementByName(element, HeaderFieldNames.Content.name());
+            
             
             Optional<InboundPayloadParser> payloadParserOpt = inboundPayLoadParserRegistry.lookup(type.getTextContent() );
             
             {
-	            Optional<InboundPayload> payload = payloadParserOpt.orElseThrow( () -> new WebApplicationException()).parse(content);
+	            Optional<InboundPayload> payload = payloadParserOpt.orElseThrow( () -> new WebApplicationException()).parse(element);
 	            
 	            if (LOGGER.isDebugEnabled()){
 			        LOGGER.debug("MsgId = {}, FromUser = {}, CreateTime = {} ", 
@@ -77,12 +78,12 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
 			        			 createTime.getTextContent());
 	            }
 	
-	            parsed = new InboundRequest(Long.valueOf(messageId.getTextContent()),
+	            parsed = Optional.of(new InboundRequest(Long.valueOf(messageId.getTextContent()),
 	                                        fromUserName.getTextContent(),
 	                                        null,
 	                                        type.getTextContent(),
 	                                        Instant.ofEpochMilli(Long.valueOf(createTime.getTextContent())),
-	                                        payload.orElseThrow( () -> new WebApplicationException()));
+	                                        payload.orElseThrow( () -> new WebApplicationException())));
             } 
         } catch (NumberFormatException e) {
             LOGGER.error("Error parsing numerical field", e );

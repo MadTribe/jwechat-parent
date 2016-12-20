@@ -5,6 +5,10 @@ PWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 source $PWD/env.sh
 
+pushd $PWD/.. 1>/dev/null
+mvn clean 
+popd 1>/dev/null
+
 pushd "$PWD/.." 1>/dev/null
 export SERVICE_HOME=`pwd`
 popd 1>/dev/null

@@ -35,6 +35,7 @@ public class WeChatEntryPoint {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeChatEntryPoint.class);
 
     private static final Response NOT_AUTHORIZED = Response.status(Response.Status.UNAUTHORIZED).build();
+    private static final Response NOT_ACCEPTABLE = Response.status(Response.Status.NOT_ACCEPTABLE).build();
     private static final String INVALID_CONFIGURATION = "invalid";
 
     @Inject
@@ -82,19 +83,26 @@ public class WeChatEntryPoint {
                               @QueryParam("timestamp") final Optional<String> timestampOptional,
                               @QueryParam("nonce") final Optional<String> nonceOptional,
                               final InboundRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        LOGGER.info("Message Received: " + request.toString());
+        LOGGER.info("Message Received: " + request);
         Response response = NOT_AUTHORIZED;
 
         if (validateSignature(signatureOptional,timestampOptional,nonceOptional)){
-            String typeKey = request.getType();
-            LOGGER.debug("Message Type: " + typeKey);
-
-            Function<InboundRequest,Response> handler = handlers.get(typeKey);
-            LOGGER.debug("Message handler: " + handler);
-            if (handler != null){
-              response = handler.apply(request);
+            response = NOT_ACCEPTABLE;
+        	
+            if (request != null){
+            	
+            	LOGGER.info("Message Received: " + request);
+            	
+	            String typeKey = request.getType();
+	            LOGGER.debug("Message Type: " + typeKey);
+	
+	            Function<InboundRequest,Response> handler = handlers.get(typeKey);
+	            LOGGER.debug("Message handler: " + handler);
+	            if (handler != null){
+	              response = handler.apply(request);
+	            }
             }
-
+            
         }
 
         return response;

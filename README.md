@@ -52,28 +52,31 @@ configure AppID, AppSecret in jwechat-service/dev-config.yml and callback url an
 
 See jwechat-service/src/main/java/org/madtribe/wechat/service/WechatExampleApplication.java
 
+Current version handles text messages and image messages. 
+
 For a simple illustration of how messages from WeChat can be handled.
 
-Current version on handles text messages. 
 
-```
+	@Override
+	public void run(WechatExampleConfig configuration, Environment environment) throws Exception {
+	
+	    WeChatEntryPoint entryPoint = configureEntryPoint(configuration, environment);
+	
+	    // This is where you can register your WeChat message handlers.
+	    // These can obviously be put in other classes as required.
+	    entryPoint.handle("text", (InboundRequest message) -> {
+	         return Response.ok("Client Code has received a message: " + message).build();
+	    });
+	    
+		entryPoint.handle("image", (InboundRequest message) -> {
+        	  return Response.ok("Client Code has received an image message: " + message).build();
+        });
+	
+	
+	}
 
-@Override
-public void run(WechatExampleConfig configuration, Environment environment) throws Exception {
-
-    WeChatEntryPoint entryPoint = configureEntryPoint(configuration, environment);
-
-    // This is where you can register your WeChat message hanlders.
-    // These can obviously be put in other classes as required.
-    entryPoint.handle("text", (InboundRequest message) -> {
-         return Response.ok("Client Code has received a message: " + message).build();
-    });
 
 
-}
-
-
-```
 
 
 

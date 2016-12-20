@@ -47,10 +47,13 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
         // This is where you can register your WeChat message hanlders.
         // These can obviously be put in other classes as required.
         entryPoint.handle("text", (InboundRequest message) -> {
-        	   return Response.ok("Client Code has received a message: " + message).build();
+        	   return Response.ok("Client Code has received a text message: " + message).build();
         });
 
 
+        entryPoint.handle("image", (InboundRequest message) -> {
+        	  return Response.ok("Client Code has received an image message: " + message).build();
+        });
     }
 
     private WeChatEntryPoint configureEntryPoint(WechatExampleConfig configuration, Environment environment) throws ClassNotFoundException {

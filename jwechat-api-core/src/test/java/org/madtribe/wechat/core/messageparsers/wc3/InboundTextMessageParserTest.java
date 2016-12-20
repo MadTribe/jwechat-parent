@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class InboundTextMessageParserTest {
 	
-	private InboundTextMessageParser instance;
+	private AbstractPayloadParser instance;
 
 	@Before
 	public void setUp() throws Exception {

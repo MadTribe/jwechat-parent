@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.Optional;
 
 /**
  * Created by paul.smout on 02/04/2016.
@@ -46,7 +47,7 @@ public class WeChatInboundRequestReader implements MessageBodyReader<InboundRequ
     }
 
     @Override
-    public InboundRequest readFrom(Class<InboundRequest> inboundRequestClass,
+	public InboundRequest readFrom(Class<InboundRequest> inboundRequestClass,
                                    Type type,
                                    Annotation[] annotations,
                                    MediaType mediaType,
@@ -57,7 +58,7 @@ public class WeChatInboundRequestReader implements MessageBodyReader<InboundRequ
 
 
         try {
-            return weChatInboundMessageParser.parse(inputStream);
+            return weChatInboundMessageParser.parse(inputStream).orElse(null);
         } catch (MessageParsingException e) {
             LOGGER.error("Message Parsing Exception", e);
             throw new WebApplicationException(e);
@@ -65,6 +66,7 @@ public class WeChatInboundRequestReader implements MessageBodyReader<InboundRequ
         }
 
     }
+
 
 
 }

@@ -4,8 +4,10 @@ import org.junit.Before;
 
 import org.junit.Test;
 import org.madtribe.wechat.core.messageparsers.DefaultInboundPayloadParserRegistry;
+import org.madtribe.wechat.core.messageparsers.InboundPayloadParser;
 import org.madtribe.wechat.core.messageparsers.InboundPayloadParserRegistry;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
+import org.madtribe.wechat.core.messages.ImageMessage;
 import org.madtribe.wechat.core.messages.TextMessage;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
@@ -48,9 +50,10 @@ public class WeChatInboundRequestW3CParserTest {
     public void should_be_able_to_parse_a_text_message() throws Exception {
 
         
-        InboundRequest inboundRequest = weChatInboundRequestW3CParser.parse(loadFixtureAsInputStream("inbound_messages/text_message_1.xml"));
+    	Optional<InboundRequest> inboundRequestOpt = weChatInboundRequestW3CParser.parse(loadFixtureAsInputStream("inbound_messages/text_message_1.xml"));
         
-        assertThat(inboundRequest, notNullValue());
+        assertTrue(inboundRequestOpt.isPresent());
+        InboundRequest inboundRequest = inboundRequestOpt.get();
         assertThat(inboundRequest.getSender(), equalTo("or4wgt3dwZQEXXyQxTGJBUlgYOJY") );
         assertThat(inboundRequest.getId(), equalTo(6273080811757834052L) );
         assertThat(inboundRequest.getCreateTime(), equalTo(Instant.ofEpochMilli(1460565443L)) );
@@ -60,11 +63,30 @@ public class WeChatInboundRequestW3CParserTest {
     }
     
     @Test
+    public void should_be_able_to_parse_an_image_message() throws Exception {
+
+        
+        Optional<InboundRequest> inboundRequestOpt = weChatInboundRequestW3CParser.parse(loadFixtureAsInputStream("inbound_messages/image_message_1.xml"));
+        
+        assertTrue(inboundRequestOpt.isPresent());
+        InboundRequest inboundRequest = inboundRequestOpt.get();
+        assertThat(inboundRequest.getSender(), equalTo("fromUser") );
+        assertThat(inboundRequest.getId(), equalTo(1234567890123456L) );
+        assertThat(inboundRequest.getCreateTime(), equalTo(Instant.ofEpochMilli(1348831860L)) );
+        
+        assertThat(inboundRequest.getPayload(), notNullValue());
+        assertThat(((ImageMessage)inboundRequest.getPayload()).getMediaId(), equalTo("media_id"));
+        assertThat(((ImageMessage)inboundRequest.getPayload()).getPicUrl(), equalTo("this is a url"));
+    }
+    
+    
+    
+    @Test
     public void should_throw_error_if_parser_not_found() throws Exception {
     	WeChatInboundRequestW3CParser parserToTest = new WeChatInboundRequestW3CParser(emptyInboundPayLoadParserRegistry);
        
         try {
-        	InboundRequest inboundRequest = parserToTest.parse(loadFixtureAsInputStream("inbound_messages/text_message_1.xml"));
+        	Optional<InboundRequest> inboundRequestOpt = parserToTest.parse(loadFixtureAsInputStream("inbound_messages/text_message_1.xml"));
         	fail("Should hace thrown an error here");
         } catch (Exception e){
         	// nothing
