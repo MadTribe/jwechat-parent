@@ -15,9 +15,9 @@ You will need:
 
 # Contributing
 
-This project accepts pull requests from anyone interested. 
+This project accepts pull requests from anyone interested. A good place to start is to work on an open issue or report one yourself.
 
-See the Pull requests section here: 
+See the Pull requests section here for how to contribute: 
 
 https://guides.github.com/activities/contributing-to-open-source/#contributing
 
