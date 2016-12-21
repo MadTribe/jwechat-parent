@@ -10,7 +10,7 @@ You will need:
 
 4. Maven installed on your development machine.  [from here](http://maven.apache.org/)
 
-5. Docker installed on your development machine. [From Here](https://www.docker.com/)
+5. Optionally Docker installed on your development machine. [From Here](https://www.docker.com/)
 
 # Useful Setup Steps
 
