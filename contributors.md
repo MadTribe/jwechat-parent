@@ -12,6 +12,17 @@ You will need:
 
 5. Docker installed on your development machine. [From Here](https://www.docker.com/)
 
+# Useful Setup Steps
+
+## Generating an SSH Key
+https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+
+
+## Cloning a repository
+https://help.github.com/articles/cloning-a-repository/
+
+## Building the project 
+[See the Readme.md](README.md)
 
 # Contributing
 
