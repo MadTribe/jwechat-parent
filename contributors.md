@@ -26,7 +26,7 @@ https://help.github.com/articles/cloning-a-repository/
 
 # Contributing
 
-This project accepts pull requests from anyone interested. A good place to start is to work on an open issue or report one yourself.
+This project accepts pull requests from anyone interested. A good place to start is to work on an open issue or report one yourself. [Issue Tracker Here](https://github.com/MadTribe/jwechat-parent/issues)
 
 See the Pull requests section here for how to contribute: 
 
