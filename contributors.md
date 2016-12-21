@@ -13,7 +13,12 @@ You will need:
 5. Docker installed on your development machine. [From Here](https://www.docker.com/)
 
 
+# Contributing
 
+This project accepts pull requests from anyone interested. 
 
+See the Pull requests section here: 
+
+https://guides.github.com/activities/contributing-to-open-source/#contributing
 
 
