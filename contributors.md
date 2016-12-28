@@ -1,6 +1,6 @@
 # Getting Started 
 
-You will need:
+## You will need:
 
 1. A Github account.  [Create one here](https://github.com/)
 
@@ -31,5 +31,17 @@ This project accepts pull requests from anyone interested. A good place to start
 See the Pull requests section here for how to contribute: 
 
 https://guides.github.com/activities/contributing-to-open-source/#contributing
+
+## To contribute code you should :
+
+Create a new branch
+
+git checkout -b <branch>
+
+Edit files, add and commit. Then push new branch to github with the -u option:
+
+git push -u origin <branch>
+
+Then create a pull request for the branch to be merged into master.
 
 

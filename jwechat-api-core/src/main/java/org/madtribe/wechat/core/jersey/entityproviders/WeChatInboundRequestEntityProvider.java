@@ -1,4 +1,4 @@
-package org.madtribe.wechat.core.messagehandlers;
+package org.madtribe.wechat.core.jersey.entityproviders;
 
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
 import org.madtribe.wechat.core.streamparsers.MessageParsingException;
@@ -23,13 +23,13 @@ import java.util.Optional;
  * 
  * 
  */
-public class WeChatInboundRequestReader implements MessageBodyReader<InboundRequest> {
+public class WeChatInboundRequestEntityProvider implements MessageBodyReader<InboundRequest> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WeChatInboundRequestReader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeChatInboundRequestEntityProvider.class);
     private WeChatInboundMessageParser weChatInboundMessageParser;
 
     @Inject
-    public WeChatInboundRequestReader(WeChatInboundMessageParser weChatInboundMessageParser) {
+    public WeChatInboundRequestEntityProvider(WeChatInboundMessageParser weChatInboundMessageParser) {
         this.weChatInboundMessageParser = weChatInboundMessageParser;
     }
 

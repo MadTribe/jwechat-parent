@@ -1,6 +1,6 @@
 package org.madtribe.wechat.core.messages;
 
-import org.madtribe.wechat.core.messages.inbound.request.InboundPayload;
+import org.madtribe.wechat.core.messages.inbound.request.MessagePayload;
 
 /**
  * Super class of every message with a MediaId

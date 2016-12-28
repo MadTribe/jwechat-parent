@@ -200,3 +200,39 @@ Not Supported Yet
 # Everything Else
 
 Not Supported
+
+# Passive Responses 
+
+## Text Response
+	<xml>
+		<ToUserName><![CDATA[toUser]]></ToUserName>
+		<FromUserName><![CDATA[fromUser]]></FromUserName>
+		<CreateTime>12345678</CreateTime>
+		<MsgType><![CDATA[text]]></MsgType>
+		<Content><![CDATA[你好]]></Content>
+	</xml>
+	
+## Image Response	
+	<xml>
+		<ToUserName><![CDATA[toUser]]></ToUserName>
+		<FromUserName><![CDATA[fromUser]]></FromUserName>
+		<CreateTime>12345678</CreateTime>
+		<MsgType><![CDATA[image]]></MsgType>
+		<Image>
+			<MediaId>
+				<![CDATA[media_id]]>
+			</MediaId>
+		</Image>
+	</xml>
+		
+## Voice Response
+	
+	<xml>
+		<ToUserName><![CDATA[toUser]]></ToUserName>
+		<FromUserName><![CDATA[fromUser]]></FromUserName>
+		<CreateTime>12345678</CreateTime>
+		<MsgType><![CDATA[voice]]></MsgType>
+		<Voice>
+			<MediaId><![CDATA[media_id]]></MediaId>
+		</Voice>
+	</xml>

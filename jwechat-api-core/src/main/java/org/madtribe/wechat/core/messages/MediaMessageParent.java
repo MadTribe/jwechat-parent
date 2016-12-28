@@ -1,12 +1,12 @@
 package org.madtribe.wechat.core.messages;
 
-import org.madtribe.wechat.core.messages.inbound.request.InboundPayload;
+import org.madtribe.wechat.core.messages.inbound.request.MessagePayload;
 
 /**
  * Super class of every message with a MediaId
  * @author paulsmout
  */
-public class MediaMessageParent implements InboundPayload {
+public class MediaMessageParent implements MessagePayload {
 
 	private final String mediaId;
 	

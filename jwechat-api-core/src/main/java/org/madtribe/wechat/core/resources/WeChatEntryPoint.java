@@ -7,7 +7,7 @@ import com.google.common.base.Optional;
 import com.google.common.hash.Hashing;
 import com.google.inject.Inject;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
-import org.madtribe.wechat.core.messagehandlers.WeChatInboundRequestReader;
+import org.madtribe.wechat.core.jersey.entityproviders.WeChatInboundRequestEntityProvider;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,6 +79,7 @@ public class WeChatEntryPoint {
      * @throws NoSuchAlgorithmException
      */
     @POST
+    @Produces(MediaType.TEXT_PLAIN)
     public Response onMessage(@QueryParam("signature") final Optional<String> signatureOptional,
                               @QueryParam("timestamp") final Optional<String> timestampOptional,
                               @QueryParam("nonce") final Optional<String> nonceOptional,
