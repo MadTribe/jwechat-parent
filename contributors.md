@@ -1,6 +1,6 @@
 # Getting Started 
 
-You will need:
+## You will need:
 
 1. A Github account.  [Create one here](https://github.com/)
 
@@ -15,5 +15,15 @@ You will need:
 
 
 
+
+## To contribute code you should :
+
+Create a new branch
+
+git checkout -b <branch>
+
+Edit files, add and commit. Then push new branch to github with the -u option:
+
+git push -u origin <branch>
 
 
