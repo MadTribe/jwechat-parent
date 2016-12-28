@@ -16,9 +16,14 @@ A major intention is to keep the API up to date with the latest Wechat features.
 ## Building the Project
 The project uses maven so Java8 and Maven3 should  be installed.
 
-In the project folder type:
+In the project folder you can build the jar file with:
 
-mvn clean package
+    mvn clean package
+
+You can then run the example service with:
+
+    java -jar jwechat-service-example/target/jwechat-service-example-1.0-SNAPSHOT.jar server jwechat-service-example/dev-config.yml
+
 
 In the /jwechat-service/docker folder there is a script: **compile-and-run.sh**
 Which will build the project and deploy to a a local docker service. 
