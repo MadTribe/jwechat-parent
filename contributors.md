@@ -26,6 +26,6 @@ Edit files, add and commit. Then push new branch to github with the -u option:
 
 git push -u origin <branch>
 
-Then create a pull request fro the branch to be merged into master.
+Then create a pull request for the branch to be merged into master.
 
 
