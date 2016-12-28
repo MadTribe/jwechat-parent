@@ -1,4 +1,4 @@
-package org.madtribe.wechat.core.messageparsers;
+package org.madtribe.wechat.core.messageparserregistry;
 
 import java.util.Optional;
 

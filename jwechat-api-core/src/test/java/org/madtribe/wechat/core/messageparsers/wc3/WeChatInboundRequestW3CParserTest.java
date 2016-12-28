@@ -3,10 +3,11 @@ package org.madtribe.wechat.core.messageparsers.wc3;
 import org.junit.Before;
 
 import org.junit.Test;
-import org.madtribe.wechat.core.messageparsers.DefaultInboundPayloadParserRegistry;
-import org.madtribe.wechat.core.messageparsers.InboundPayloadParser;
-import org.madtribe.wechat.core.messageparsers.InboundPayloadParserRegistry;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
+import org.madtribe.wechat.core.wc3.messageparsers.WeChatInboundRequestW3CParser;
+import org.madtribe.wechat.core.messageparserregistry.DefaultInboundPayloadParserRegistry;
+import org.madtribe.wechat.core.messageparserregistry.InboundPayloadParser;
+import org.madtribe.wechat.core.messageparserregistry.InboundPayloadParserRegistry;
 import org.madtribe.wechat.core.messages.ImageMessage;
 import org.madtribe.wechat.core.messages.TextMessage;
 import org.mockito.Mock;

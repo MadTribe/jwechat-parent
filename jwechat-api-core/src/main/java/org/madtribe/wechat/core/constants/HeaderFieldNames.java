@@ -6,5 +6,5 @@ package org.madtribe.wechat.core.constants;
  * Inbound message format.
  */
 public enum HeaderFieldNames {
-	MsgId, CreateTime, MsgType, FromUserName, Content;
+	MsgId, CreateTime, MsgType, FromUserName, ToUserName, Content;
 }

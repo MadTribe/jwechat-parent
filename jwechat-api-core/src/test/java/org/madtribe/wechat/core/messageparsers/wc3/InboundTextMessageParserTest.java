@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.madtribe.wechat.core.wc3.messageparsers.AbstractPayloadParser;
+import org.madtribe.wechat.core.wc3.messageparsers.InboundTextMessageParser;
 
 public class InboundTextMessageParserTest {
 	

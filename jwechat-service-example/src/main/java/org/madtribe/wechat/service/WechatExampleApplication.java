@@ -6,10 +6,14 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import javax.ws.rs.core.Response;
 
+import org.madtribe.wechat.core.constants.MessageTypes;
 import org.madtribe.wechat.core.container.JWeChatContanerMain;
-import org.madtribe.wechat.core.messagehandlers.WeChatInboundRequestReader;
+import org.madtribe.wechat.core.jersey.entityproviders.WeChatInboundRequestEntityProvider;
+import org.madtribe.wechat.core.jersey.entityproviders.WeChatOutboundResponseEntityProvider;
+import org.madtribe.wechat.core.messages.ImageMessage;
 import org.madtribe.wechat.core.messages.TextMessage;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
+import org.madtribe.wechat.core.messages.inbound.response.InboundResponse;
 import org.madtribe.wechat.core.resources.WeChatEntryPoint;
 import org.madtribe.wechat.service.resources.RootResource;
 import org.slf4j.Logger;
@@ -47,12 +51,19 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
         // This is where you can register your WeChat message hanlders.
         // These can obviously be put in other classes as required.
         entryPoint.handle("text", (InboundRequest message) -> {
-        	   return Response.ok("Client Code has received a text message: " + message).build();
+        	    
+        	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
+						"MadTribe", 
+						"bob",
+						new TextMessage("The inbound text message was receivd"))).build();
         });
 
 
         entryPoint.handle("image", (InboundRequest message) -> {
-        	  return Response.ok("Client Code has received an image message: " + message).build();
+      	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
+						"MadTribe", 
+						"bob",
+						new TextMessage("The inbound image message was receivd"))).build();
         });
     }
 
@@ -60,7 +71,8 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
         JWeChatContanerMain guiceMain = new JWeChatContanerMain( configuration.getWeChatConfiguration());
         environment.jersey().register(new RootResource(configuration));
         WeChatEntryPoint entryPoint = guiceMain.get(WeChatEntryPoint.class);
-        environment.jersey().register(guiceMain.get(WeChatInboundRequestReader.class));
+        environment.jersey().register(guiceMain.get(WeChatInboundRequestEntityProvider.class));
+        environment.jersey().register(guiceMain.get(WeChatOutboundResponseEntityProvider.class));
         environment.jersey().register(entryPoint);
         return entryPoint;
     }

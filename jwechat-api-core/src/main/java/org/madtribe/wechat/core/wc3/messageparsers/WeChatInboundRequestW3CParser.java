@@ -1,11 +1,11 @@
-package org.madtribe.wechat.core.messageparsers.wc3;
+package org.madtribe.wechat.core.wc3.messageparsers;
 
 
 
 import org.madtribe.wechat.core.constants.HeaderFieldNames;
-import org.madtribe.wechat.core.messageparsers.InboundPayloadParser;
-import org.madtribe.wechat.core.messageparsers.InboundPayloadParserRegistry;
-import org.madtribe.wechat.core.messages.inbound.request.InboundPayload;
+import org.madtribe.wechat.core.messageparserregistry.InboundPayloadParser;
+import org.madtribe.wechat.core.messageparserregistry.InboundPayloadParserRegistry;
+import org.madtribe.wechat.core.messages.inbound.request.MessagePayload;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
 import org.madtribe.wechat.core.streamparsers.MessageParsingException;
 import org.madtribe.wechat.core.streamparsers.WeChatInboundMessageParser;
@@ -69,7 +69,7 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
             Optional<InboundPayloadParser> payloadParserOpt = inboundPayLoadParserRegistry.lookup(type.getTextContent() );
             
             {
-	            Optional<InboundPayload> payload = payloadParserOpt.orElseThrow( () -> new WebApplicationException()).parse(element);
+	            Optional<MessagePayload> payload = payloadParserOpt.orElseThrow( () -> new WebApplicationException()).parse(element);
 	            
 	            if (LOGGER.isDebugEnabled()){
 			        LOGGER.debug("MsgId = {}, FromUser = {}, CreateTime = {} ", 

@@ -1,11 +1,11 @@
-package org.madtribe.wechat.core.messageparsers;
+package org.madtribe.wechat.core.messageparserregistry;
 
 import java.util.HashMap;
 import java.util.Optional;
 
 import org.madtribe.wechat.core.constants.MessageTypes;
-import org.madtribe.wechat.core.messageparsers.wc3.InboundImageMessageParser;
-import org.madtribe.wechat.core.messageparsers.wc3.InboundTextMessageParser;
+import org.madtribe.wechat.core.wc3.messageparsers.InboundImageMessageParser;
+import org.madtribe.wechat.core.wc3.messageparsers.InboundTextMessageParser;
 
 /**
  * TODO, move this under the wc3 package. 

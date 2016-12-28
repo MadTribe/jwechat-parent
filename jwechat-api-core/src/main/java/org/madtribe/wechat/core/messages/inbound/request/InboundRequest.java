@@ -1,6 +1,6 @@
 package org.madtribe.wechat.core.messages.inbound.request;
 
-import org.madtribe.wechat.core.messages.inbound.request.InboundPayload;
+import org.madtribe.wechat.core.messages.inbound.request.MessagePayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 /**
  * Created by paul.smout on 02/04/2016.
  */
-public class InboundRequest<X extends InboundPayload> {
+public class InboundRequest<X extends MessagePayload> {
     private static final Logger LOGGER = LoggerFactory.getLogger(InboundRequest.class);
 
     private long id;
@@ -21,9 +21,9 @@ public class InboundRequest<X extends InboundPayload> {
     private String recipient;
     private String type;
     private Instant createTime;
-    private InboundPayload payload;
+    private MessagePayload payload;
 
-    public InboundRequest(long id, String sender, String recipient, String type, Instant createTime, InboundPayload payload) {
+    public InboundRequest(long id, String sender, String recipient, String type, Instant createTime, MessagePayload payload) {
         this.id = id;
         this.sender = sender;
         this.recipient = recipient;
@@ -52,7 +52,7 @@ public class InboundRequest<X extends InboundPayload> {
 		return type;
 	}
 
-    public InboundPayload getPayload() {
+    public MessagePayload getPayload() {
         return payload;
     }
 
