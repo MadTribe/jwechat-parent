@@ -50,20 +50,20 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
 
         // This is where you can register your WeChat message hanlders.
         // These can obviously be put in other classes as required.
-        entryPoint.handle("text", (InboundRequest message) -> {
-        	    
+        entryPoint.handle("text", (InboundRequest message) -> {        	
+        	
         	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
-						"MadTribe", 
-						"bob",
-						new TextMessage("The inbound text message was receivd"))).build();
+        			  			 message.getRecipient(), 
+						         message.getSender(),
+						         new TextMessage("The inbound text message was receivd"))).build();
         });
 
 
         entryPoint.handle("image", (InboundRequest message) -> {
       	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
-						"MadTribe", 
-						"bob",
-						new TextMessage("The inbound image message was receivd"))).build();
+      			  			 message.getRecipient(), 
+					         message.getSender(),
+						     new TextMessage("The inbound image message was receivd"))).build();
         });
     }
 

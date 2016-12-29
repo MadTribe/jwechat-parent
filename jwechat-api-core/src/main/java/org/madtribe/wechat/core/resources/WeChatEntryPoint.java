@@ -79,7 +79,7 @@ public class WeChatEntryPoint {
      * @throws NoSuchAlgorithmException
      */
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_XML)
     public Response onMessage(@QueryParam("signature") final Optional<String> signatureOptional,
                               @QueryParam("timestamp") final Optional<String> timestampOptional,
                               @QueryParam("nonce") final Optional<String> nonceOptional,
