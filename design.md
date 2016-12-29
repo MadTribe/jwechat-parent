@@ -10,7 +10,6 @@ participant "DefaultInboundPayloadParserRegistry" as PPR
 participant "InboundPayloadParser" as IPP
 participant "WeChatEntryPoint" as Entry;
 participant "User Code" as UC;
-
 participant "Last Class" as C;
 User -> WX: Trigger/Send Message;
 activate WX;
