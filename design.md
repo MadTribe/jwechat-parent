@@ -15,8 +15,20 @@ WX -> Jersey: Send Request;
 Jersey -> IEP: readFrom;
 IEP --> MPW3C: parse;
 MPW3C --> PPR: lookup message_type;
+activate PPR;
+PPR --> MPW3C: return payload parser;
+deactivate PPR;
 MPW3C --> IPP: parse;
-Jersey --> Entry: onMessage;
+activate IPP;
+IPP --> MPW3C: return inboundPayload object;
+deactivate IPP;
+MPW3C --> IEP: return InboundRequest object;
+deactivate MPW3C;
+IEP --> Jersey: return InboundRequest object;
+deactivate IEP;
+Jersey --> Entry: onMessage passing InboundRequest;
+activate Entry;
 Entry --> UC: handler.apply;
+activate UC;
 @enduml
 )
