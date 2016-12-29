@@ -18,22 +18,22 @@ activate WX;
 WX -> Jersey: Send Request;
 activate Jersey;
 
-Jersey -> IEP: readFrom();
+Jersey -> IEP: readFrom;
 activate IEP;
 
-IEP --> MPW3C: parse();
+IEP --> MPW3C: parse;
 activate MPW3C;
 
-MPW3C --> PPR: lookup(message_type);
+MPW3C --> PPR: lookup message_type;
 deactivate PPR;
 
-MPW3C --> IPP: parse( message payload ) 
+MPW3C --> IPP: parse
 deactivate IPP;
 
-Jersey --> Entry: onMessage( );
+Jersey --> Entry: onMessage;
 activate Entry;
 
-Entry --> UC: handler.apply(..)
+Entry --> UC: handler.apply
 
 @enduml
 )
