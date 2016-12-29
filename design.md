@@ -10,7 +10,6 @@ participant "DefaultInboundPayloadParserRegistry" as PPR
 participant "InboundPayloadParser" as IPP
 participant "WeChatEntryPoint" as Entry;
 participant "User Code" as UC;
-participant "Last Class" as C;
 User -> WX: Send Message;
 WX -> Jersey: Send Request;
 Jersey -> IEP: readFrom;
@@ -18,6 +17,6 @@ IEP --> MPW3C: parse;
 MPW3C --> PPR: lookup message_type;
 MPW3C --> IPP: parse;
 Jersey --> Entry: onMessage;
-Entry --> UC: handler.apply
+Entry --> UC: handler.apply;
 @enduml
 )
