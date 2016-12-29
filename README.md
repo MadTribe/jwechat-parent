@@ -46,7 +46,7 @@ Localtunnel is a useful tool for exposing your local machine to wechat.
 
 You can easily set up a Sandbox account on Wechat [here](http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login).
 
-TODO - Notes on configuring Wechat Sandbox
+TODO - Improve Notes on configuring Wechat Sandbox
 
 ### You will need these common tools:
 Java8
@@ -56,11 +56,26 @@ NPM
 LocalTunnel (Node JS Module)
 DockerMachine
 
-TODO - Steps to run service in sandbox via docker.
-Basically go to jwechat-service/docker
-run compile-and-run.sh
-run tunnel-to-docker.sh
-configure AppID, AppSecret in jwechat-service/dev-config.yml and callback url and token in Wechat backend.
+
+Set the following environment variables on your computer.
+
+SAMPLE_WECHAT_APP_ID to your test app id (match what you set in the sandbox account)
+
+SAMPLE_WECHAT_APP_SECRET to your app secret (match what you set in the sandbox account)
+
+SAMPLE_WECHAT_APP_TOKEN to you app secret (match what you set in the sandbox account)
+
+WECHAT_REQUESTED_SDOMAIN to a subdomain to be used by localtunnel 
+
+Go to jwechat-service-example/docker folder
+
+run compile-and-run.sh  this will deploy the service to your local docker.
+
+run tunnel-to-docker.sh  this will 
+
+configure AppID, AppSecret AppToken in Wechat sandbox backend and set callback url to what tunnel-to-docker.sh tell you.
+
+Scan the QR code for the sandbox account and send yourself a message, you should see it in the docker logs and see a text response to your phone. 
 
 
 ## Example Code
@@ -79,12 +94,20 @@ For a simple illustration of how messages from WeChat can be handled.
 	
 	    // This is where you can register your WeChat message handlers.
 	    // These can obviously be put in other classes as required.
-	    entryPoint.handle("text", (InboundRequest message) -> {
-	         return Response.ok("Client Code has received a message: " + message).build();
-	    });
-	    
-		entryPoint.handle("image", (InboundRequest message) -> {
-        	  return Response.ok("Client Code has received an image message: " + message).build();
+        entryPoint.handle("text", (InboundRequest message) -> {        	
+        	
+        	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
+        			  			 					  message.getRecipient(),
+        			  			 					  message.getSender(),
+        			  			 					  new TextMessage("The inbound text 													  message was received."))).build();
+        });
+    
+        entryPoint.handle("image", (InboundRequest message) -> {
+        	
+      	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
+      			  			 					  message.getRecipient(), 
+      			  			 					  message.getSender(),
+      			  			 					  new TextMessage("The inbound image 													  message was received"))).build();
         });
 	
 	

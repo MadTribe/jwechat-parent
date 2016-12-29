@@ -53,17 +53,18 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
         entryPoint.handle("text", (InboundRequest message) -> {        	
         	
         	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
-        			  			 message.getRecipient(), 
-						         message.getSender(),
-						         new TextMessage("The inbound text message was receivd"))).build();
+        			  			 					  message.getRecipient(),
+        			  			 					  message.getSender(),
+        			  			 					  new TextMessage("The inbound text message was received."))).build();
         });
 
 
         entryPoint.handle("image", (InboundRequest message) -> {
+        	
       	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
-      			  			 message.getRecipient(), 
-					         message.getSender(),
-						     new TextMessage("The inbound image message was receivd"))).build();
+      			  			 					  message.getRecipient(), 
+      			  			 					  message.getSender(),
+      			  			 					  new TextMessage("The inbound image message was received"))).build();
         });
     }
 
