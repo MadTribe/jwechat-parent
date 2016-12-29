@@ -45,6 +45,7 @@ public class WeChatOutboundResponseEntityProvider implements MessageBodyWriter<I
 	    	
             // serialize the entity myBean to the entity output stream
         	responseWriter.writeToStream(myBean, entityStream);
+        	entityStream.flush();
 
 	    }
 

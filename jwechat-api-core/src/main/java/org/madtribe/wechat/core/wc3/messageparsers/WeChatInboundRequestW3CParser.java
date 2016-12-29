@@ -62,6 +62,7 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
             
             Node messageId = getElementByName(element, HeaderFieldNames.MsgId.name());
             Node fromUserName = getElementByName(element, HeaderFieldNames.FromUserName.name());
+            Node toUserName = getElementByName(element, HeaderFieldNames.ToUserName.name());
             Node createTime = getElementByName(element, HeaderFieldNames.CreateTime.name());
             Node type = getElementByName(element, HeaderFieldNames.MsgType.name());
             
@@ -80,7 +81,7 @@ public class WeChatInboundRequestW3CParser implements WeChatInboundMessageParser
 	
 	            parsed = Optional.of(new InboundRequest(Long.valueOf(messageId.getTextContent()),
 	                                        fromUserName.getTextContent(),
-	                                        null,
+	                                        toUserName.getTextContent(),
 	                                        type.getTextContent(),
 	                                        Instant.ofEpochMilli(Long.valueOf(createTime.getTextContent())),
 	                                        payload.orElseThrow( () -> new WebApplicationException())));

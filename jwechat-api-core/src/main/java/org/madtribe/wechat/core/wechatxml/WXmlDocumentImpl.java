@@ -12,7 +12,7 @@ import javax.xml.transform.TransformerException;
  */
 public class WXmlDocumentImpl implements WXmlDocument {
 	
-	private StringBuilder doc = new StringBuilder();
+	private StringBuilder doc = new StringBuilder("<?xml version=\"1.0\"?>");
 	
 	@Override
 	public WXmlDocument cdata(String text) {

@@ -1,5 +1,6 @@
 
-DOCKER_IP=$(echo $DOCKER_HOST | cut -d":" -f2 | cut -d"/" -f3 )
+#DOCKER_IP=$(echo $DOCKER_HOST | cut -d":" -f2 | cut -d"/" -f3 )
+DOCKER_IP=127.0.0.1
 
 echo $DOCKER_IP
 
