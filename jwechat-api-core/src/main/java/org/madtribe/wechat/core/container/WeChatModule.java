@@ -3,7 +3,10 @@ package org.madtribe.wechat.core.container;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-
+import org.madtribe.wechat.core.client.DefaultHttpRequestUtils;
+import org.madtribe.wechat.core.client.IHttpRequestUtils;
+import org.madtribe.wechat.core.client.accesstoken.IAccessTokenStorage;
+import org.madtribe.wechat.core.client.accesstoken.InMemoryAccessTokenHolder;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
 import org.madtribe.wechat.core.messageparserregistry.*;
 import org.madtribe.wechat.core.streamparsers.WeChatInboundMessageParser;
@@ -32,9 +35,14 @@ public class WeChatModule extends AbstractModule {
     	bind(WeChatInboundMessageParser.class).to(WeChatInboundRequestW3CParser.class);
     	bind(MessagePayloadWriterRegistry.class).to(DefaultPayloadWriterRegistry.class);
         bind(WeChatConfiguration.class).toInstance(configuration);
-        bind(WeChatOutboundResponseWriter.class).to(InboundResponseMessageWriter.class);
+        bind(WeChatOutboundResponseWriter.class).to(InboundResponseMessageWriter.class);    	
+        configureClient();
     }
 
+    protected void configureClient(){
+        bind(IHttpRequestUtils.class).to(DefaultHttpRequestUtils.class);
+        bind(IAccessTokenStorage.class).to(InMemoryAccessTokenHolder.class);
+    }
 
     @Provides
     private WXmlDocument provideTransactionLog() {

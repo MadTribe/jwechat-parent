@@ -2,19 +2,21 @@
 
 RET=0;
 
-if [ -z ${SAMPLE_WECHAT_APP_ID+x} ]; then
-    echo "Please set environment variable SAMPLE_WECHAT_APP_ID";
-    RET=1;
-fi
+#
+# Checks whether the named variable has been set and updates global RET if not. 
+#
+function checkVar {
+  local TO_CHECK=$1
 
-if [ -z ${SAMPLE_WECHAT_APP_SECRET+x} ]; then
-    echo "Please set environment variable SAMPLE_WECHAT_APP_SECRET";
-    RET=1;
-fi
+  if [ -z ${!TO_CHECK} ]; then
+      echo "Please set environment variable $TO_CHECK";
+      RET=1;
+  fi
 
-if [ -z ${SAMPLE_WECHAT_APP_TOKEN+x} ]; then
-    echo "Please set environment variable SAMPLE_WECHAT_APP_TOKEN";
-    RET=1;
-fi
+}
+
+checkVar "SAMPLE_WECHAT_APP_ID"
+checkVar "SAMPLE_WECHAT_APP_SECRET"
+checkVar "SAMPLE_WECHAT_APP_TOKEN"
 
 return $RET;
