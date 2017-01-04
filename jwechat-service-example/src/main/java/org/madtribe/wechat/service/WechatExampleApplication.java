@@ -4,8 +4,13 @@ import de.thomaskrille.dropwizard.environment_configuration.EnvironmentConfigura
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+
+import java.util.Optional;
+
 import javax.ws.rs.core.Response;
 
+import org.madtribe.wechat.core.client.WechatAPI;
+import org.madtribe.wechat.core.client.accesstoken.AccessToken;
 import org.madtribe.wechat.core.constants.MessageTypes;
 import org.madtribe.wechat.core.container.JWeChatContanerMain;
 import org.madtribe.wechat.core.jersey.entityproviders.WeChatInboundRequestEntityProvider;
@@ -28,6 +33,8 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WechatExampleApplication.class);
 
+    private JWeChatContanerMain guiceMain; 
+    
     public static void main(String[] args) throws Exception {
 
         new WechatExampleApplication().run(args);
@@ -45,17 +52,25 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
 
     @Override
     public void run(WechatExampleConfig configuration, Environment environment) throws Exception {
-
+    	guiceMain = new JWeChatContanerMain( configuration.getWeChatConfiguration());
+    	
+    	WechatAPI wechatAPI = guiceMain.get(WechatAPI.class);
+    	
         WeChatEntryPoint entryPoint = configureEntryPoint(configuration, environment);
 
         // This is where you can register your WeChat message hanlders.
         // These can obviously be put in other classes as required.
         entryPoint.handle("text", (InboundRequest message) -> {        	
         	
+        	  Optional<AccessToken> accessToken = wechatAPI.getAccessToken();
+        	
+        	  System.err.println("Obtained Access Token: " + accessToken.get());
+        	
+        	
         	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
         			  			 					  message.getRecipient(),
         			  			 					  message.getSender(),
-        			  			 					  new TextMessage("The inbound text message was received."))).build();
+        			  			 					  new TextMessage("Happy New Year!!"))).build();
         });
 
 
@@ -69,7 +84,7 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
     }
 
     private WeChatEntryPoint configureEntryPoint(WechatExampleConfig configuration, Environment environment) throws ClassNotFoundException {
-        JWeChatContanerMain guiceMain = new JWeChatContanerMain( configuration.getWeChatConfiguration());
+        
         environment.jersey().register(new RootResource(configuration));
         WeChatEntryPoint entryPoint = guiceMain.get(WeChatEntryPoint.class);
         environment.jersey().register(guiceMain.get(WeChatInboundRequestEntityProvider.class));

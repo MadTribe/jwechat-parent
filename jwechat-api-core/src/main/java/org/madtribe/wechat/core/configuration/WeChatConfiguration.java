@@ -24,6 +24,11 @@ public class WeChatConfiguration {
     @NotNull
 	@JsonProperty
     private String weChatAppSecret;
+	
+	@Valid
+    @NotNull
+	@JsonProperty
+	WechatURLsConfig wechatURLsConfig = new WechatURLsConfig();
 
 	
     public String getWeChatToken() {
@@ -37,4 +42,8 @@ public class WeChatConfiguration {
     public String getWeChatAppSecret() {
         return weChatAppSecret;
     }
+    
+    public WechatURLsConfig getWechatURLsConfig() {
+		return wechatURLsConfig;
+	}
 }
