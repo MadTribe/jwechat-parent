@@ -12,9 +12,22 @@ public class WechatURLsConfig {
 	@JsonProperty
     private String tokenUrlforAppIdAndAppSecret = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
 
+	@Valid
+    @NotNull
+	@JsonProperty
+    private String sendMessageUrlforAccessToken = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s";
+
+	
 	public String getTokenUrlforAppIdAndAppSecret() {
 		return tokenUrlforAppIdAndAppSecret;
 	}
 
 
+	public String getSendMessageUrlforAccessToken() {
+		return sendMessageUrlforAccessToken;
+	}
+
+
+	
+	
 }

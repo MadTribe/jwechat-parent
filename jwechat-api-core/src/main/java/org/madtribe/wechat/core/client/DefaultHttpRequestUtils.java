@@ -4,15 +4,20 @@ import java.io.IOException;
 import java.util.Optional;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.madtribe.wechat.core.client.accesstoken.AccessToken;
 import org.madtribe.wechat.core.client.accesstoken.DefaultAccessTokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -62,6 +67,36 @@ public class DefaultHttpRequestUtils implements IHttpRequestUtils {
 		
 		}
 		return ret;
+	}
+
+
+	@Override
+	public void postObject(String url, Object object) {
+		//Object to JSON in String
+		try {
+			String jsonInString = objectMapper.writeValueAsString(object);
+			
+			LOGGER.debug("Sending {} to {}", jsonInString, url);
+			
+			HttpEntity httpEntity = new StringEntity(jsonInString);
+			
+			HttpPost httpPost = new HttpPost(url);
+
+			httpPost.setEntity(httpEntity);
+
+
+			try(CloseableHttpResponse response2 = httpClient.execute(httpPost)) {
+			    
+			    HttpEntity entity2 = response2.getEntity();
+			    String entiryAsString =  EntityUtils.toString(httpEntity);
+				LOGGER.info("GET response is {}  --- status line is {}", entiryAsString, response2.getStatusLine().toString());
+				
+			    EntityUtils.consume(entity2);
+			}
+		} catch (IOException e) {
+			LOGGER.error("Error sending get request",e);
+		}
+		
 	}
 	
 }
