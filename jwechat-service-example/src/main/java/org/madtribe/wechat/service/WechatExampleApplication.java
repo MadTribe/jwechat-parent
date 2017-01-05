@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 
 import org.madtribe.wechat.core.client.WechatAPI;
 import org.madtribe.wechat.core.client.accesstoken.AccessToken;
+import org.madtribe.wechat.core.client.messages.CSTextMessage;
 import org.madtribe.wechat.core.constants.MessageTypes;
 import org.madtribe.wechat.core.container.JWeChatContanerMain;
 import org.madtribe.wechat.core.jersey.entityproviders.WeChatInboundRequestEntityProvider;
@@ -66,7 +67,25 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
         	
         	  System.err.println("Obtained Access Token: " + accessToken.get());
         	
-        	
+        	  
+        	  
+        	  new Thread(() ->{
+        		int numMessages = 11;
+        		for (int i=1 ; i <= numMessages; i++){
+        		   try {
+        			  Thread.sleep(2000L);
+        			  
+        			  wechatAPI.sendCustomerServiceMessage(new CSTextMessage(message.getSender(),
+        					  											    "This is your message " + i + " of "+ numMessages + "."));
+        			  
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+        		}
+        	  }).start();
+        	  
+        	  
         	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
         			  			 					  message.getRecipient(),
         			  			 					  message.getSender(),
