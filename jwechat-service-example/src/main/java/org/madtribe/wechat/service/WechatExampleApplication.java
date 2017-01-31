@@ -11,7 +11,11 @@ import javax.ws.rs.core.Response;
 
 import org.madtribe.wechat.core.client.WechatAPI;
 import org.madtribe.wechat.core.client.accesstoken.AccessToken;
+import org.madtribe.wechat.core.client.errors.WeChatResponseError;
+import org.madtribe.wechat.core.client.messages.CSImageMessage;
 import org.madtribe.wechat.core.client.messages.CSTextMessage;
+import org.madtribe.wechat.core.client.messages.MediaType;
+import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
 import org.madtribe.wechat.core.constants.MessageTypes;
 import org.madtribe.wechat.core.container.JWeChatContanerMain;
 import org.madtribe.wechat.core.jersey.entityproviders.WeChatInboundRequestEntityProvider;
@@ -58,6 +62,10 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
     	WechatAPI wechatAPI = guiceMain.get(WechatAPI.class);
     	
         WeChatEntryPoint entryPoint = configureEntryPoint(configuration, environment);
+        
+        
+        Optional<MediaUploadResponse> mediaIdOpt = wechatAPI.uploadTemporaryMedia(this.getClass().getResourceAsStream("/ball.jpg"), MediaType.image);
+        System.err.println("Uploaded ball and got media id" + mediaIdOpt.get());
 
         // This is where you can register your WeChat message hanlders.
         // These can obviously be put in other classes as required.
@@ -75,10 +83,21 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
         		   try {
         			  Thread.sleep(2000L);
         			  
-        			  wechatAPI.sendCustomerServiceMessage(new CSTextMessage(message.getSender(),
-        					  											    "This is your message " + i + " of "+ numMessages + "."));
+        			  
+        			  if (mediaIdOpt.isPresent()){
+	
+	        			  wechatAPI.sendCustomerServiceMessage(new CSImageMessage(message.getSender(),
+	        					  mediaIdOpt.get().getMediaId() ));
+        			  
+        			  } else {
+	        			  wechatAPI.sendCustomerServiceMessage(new CSTextMessage(message.getSender(),
+	        					  											    "No media available " + i + " of "+ numMessages + "."));
+        			  }
         			  
 					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (WeChatResponseError e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -86,7 +105,7 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
         	  }).start();
         	  
         	  
-        	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
+        	  return Response.ok(new InboundResponse( MessageTypes.IMAGE_MESSAGE_TYPE, 
         			  			 					  message.getRecipient(),
         			  			 					  message.getSender(),
         			  			 					  new TextMessage("Happy New Year!!"))).build();

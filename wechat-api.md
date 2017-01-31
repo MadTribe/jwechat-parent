@@ -6,6 +6,8 @@ The complete version is here:
 [here](http://mp.weixin.qq.com/wiki/9/4f455120b50741db79b54fde8896b489.html#.E5.8D.A1.E5.88.B8.E6.8E.A5.E5.8F.A3.E6.A6.82.E8.BF.B0)
 
 
+# Passive API
+
 ## Message Header
 All inbound messages contain the following fields
 
