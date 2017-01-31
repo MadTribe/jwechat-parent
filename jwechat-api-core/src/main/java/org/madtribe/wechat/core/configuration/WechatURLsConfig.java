@@ -17,6 +17,11 @@ public class WechatURLsConfig {
 	@JsonProperty
     private String sendMessageUrlforAccessToken = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s";
 
+	@Valid
+    @NotNull
+	@JsonProperty
+    private String addMaterialforAccessTokenAndType = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s";
+	
 	
 	public String getTokenUrlforAppIdAndAppSecret() {
 		return tokenUrlforAppIdAndAppSecret;
@@ -28,6 +33,9 @@ public class WechatURLsConfig {
 	}
 
 
+	public String getAddMaterialforAccessTokenAndType() {
+		return addMaterialforAccessTokenAndType;
+	}
 	
-	
+
 }

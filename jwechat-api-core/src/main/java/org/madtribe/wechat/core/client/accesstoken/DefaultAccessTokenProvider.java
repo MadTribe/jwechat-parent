@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 import org.madtribe.wechat.core.client.WechatAPIClient;
+import org.madtribe.wechat.core.client.errors.WeChatResponseError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,11 @@ public class DefaultAccessTokenProvider {
 		
 		if (!accessToken.isPresent() || accessToken.get().timeInMillisToExpiry() < EXPIRY_GRACE_PERIOD_MILLIS){
 			LOGGER.info("Requesting new access token");
-			accessToken = wechatAPIClient.requestNewAccessToken();
+			try {
+				accessToken = wechatAPIClient.requestNewAccessToken();
+			} catch (WeChatResponseError e) {
+				LOGGER.error("Error obtaining Access token {}", e);
+			}
 			accessTokenStorage.storeAccessToken(accessToken.get());
 		}
 		LOGGER.debug("returning access token {}", accessToken.isPresent());
