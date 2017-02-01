@@ -5,14 +5,14 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CSTextMessage extends CustomerServiceMessage {
+public class CustomerServiceTextMessage extends CustomerServiceMessage {
 
 	@Valid
     @NotNull
 	@JsonProperty("text")
     private TextContent text;
 	
-	public CSTextMessage(String toUser, String message) {
+	public CustomerServiceTextMessage(String toUser, String message) {
 		super(toUser, "text");
 		this.text = new TextContent(message);
 	}
