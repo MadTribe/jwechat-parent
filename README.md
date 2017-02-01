@@ -49,12 +49,12 @@ You can easily set up a Sandbox account on Wechat [here](http://mp.weixin.qq.com
 TODO - Improve Notes on configuring Wechat Sandbox
 
 ### You will need these common tools:
-Java8
-Maven
-NodeJS
-NPM
-LocalTunnel (Node JS Module)
-DockerMachine
+ - Java8
+ - Maven
+ - NodeJS
+ - NPM
+ - LocalTunnel (Node JS Module)
+ - DockerMachine
 
 
 Set the following environment variables on your computer.
@@ -96,23 +96,26 @@ For a simple illustration of how messages from WeChat can be handled.
 	    // These can obviously be put in other classes as required.
         entryPoint.handle("text", (InboundRequest message) -> {        	
         	
-        	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
-        			  			 					  message.getRecipient(),
-        			  			 					  message.getSender(),
-        			  			 					  new TextMessage("The inbound text 													  message was received."))).build();
+        	  return Response.ok(new TextMessageResponse(message, "An Text Message was received")))).build();
         });
     
         entryPoint.handle("image", (InboundRequest message) -> {
         	
-      	  return Response.ok(new InboundResponse( MessageTypes.TEXT_MESSAGE_TYPE, 
-      			  			 					  message.getRecipient(), 
-      			  			 					  message.getSender(),
-      			  			 					  new TextMessage("The inbound image 													  message was received"))).build();
+      	  return Response.ok(new TextMessageResponse(message, "An Image Message was received")))).build();
         });
 	
 	
 	}
 
+For a simple illustration of how to use the WeChat active apis.
+
+	// Upload an image and get its media ID
+	InputStream is = this.getClass().getResourceAsStream("/ball.jpg");
+	Optional<MediaUploadResponse> mediaResponse = wechatAPI.uploadTemporaryMedia(is, MediaType.image);
+
+	// Send an image 
+	wechatAPI
+		.sendCustomerServiceMessage(new CustomerServiceImageMessage(message.getSender(),																		            mediaResponse.get().getMediaId()));
 
 
 

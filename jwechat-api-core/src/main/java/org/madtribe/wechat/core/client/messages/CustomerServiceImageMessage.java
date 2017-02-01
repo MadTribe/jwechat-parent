@@ -5,14 +5,14 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CSImageMessage extends CustomerServiceMessage {
+public class CustomerServiceImageMessage extends CustomerServiceMessage {
 
 	@Valid
     @NotNull
 	@JsonProperty("image")
     private ImageContent image;
 	
-	public CSImageMessage(String toUser, String mediaId) {
+	public CustomerServiceImageMessage(String toUser, String mediaId) {
 		super(toUser, "image");
 		this.image = new ImageContent(mediaId);
 	}
