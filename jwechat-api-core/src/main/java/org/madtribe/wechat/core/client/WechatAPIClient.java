@@ -7,9 +7,11 @@ import javax.inject.Inject;
 
 import org.madtribe.wechat.core.client.accesstoken.AccessToken;
 import org.madtribe.wechat.core.client.errors.WeChatResponseError;
+import org.madtribe.wechat.core.client.menu.Menu;
 import org.madtribe.wechat.core.client.messages.CustomerServiceMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
+import org.madtribe.wechat.core.client.responses.StatusResponse;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,15 +31,16 @@ public class WechatAPIClient {
 		return accesToken;
 	}
 
-	public void sendMessage(Optional<AccessToken> accessToken, CustomerServiceMessage message) {
-		
+	public Optional<StatusResponse> sendMessage(Optional<AccessToken> accessToken, CustomerServiceMessage message) throws WeChatResponseError {
+		Optional<StatusResponse>  ret = Optional.empty();
 		if (accessToken.isPresent()){
 			String sendMessageUrlforAccessToken = config.getWechatURLsConfig().getSendMessageUrlforAccessToken();
 			String url = String.format(sendMessageUrlforAccessToken, accessToken.get().getAccessTokenString());
-			httpClient.postObject(url,message);
+			ret = httpClient.postObject(url,message, StatusResponse.class);
 		} else {
-			LOGGER.warn("No Access token provided. Giving up.");
+			LOGGER.error("No Access token provided. Giving up.");
 		}
+		return ret;
 	}
 	
 	public Optional<MediaUploadResponse> uploadTemporaryMedia(Optional<AccessToken> accessToken, InputStream inputStream, MediaType type) throws WeChatResponseError{
@@ -46,6 +49,18 @@ public class WechatAPIClient {
 		
 		Optional<MediaUploadResponse> response = httpClient.postFile( url, inputStream, "media", MediaUploadResponse.class);
 		return response;
+	}
+
+	public Optional<StatusResponse> createMenu(Optional<AccessToken> accessToken, Menu menu) throws WeChatResponseError {
+		Optional<StatusResponse>  ret = Optional.empty();
+		if (accessToken.isPresent()){
+			String createMenuForAccessToken = config.getWechatURLsConfig().getCreateMenuForAccessToken();
+			String url = String.format(createMenuForAccessToken, accessToken.get().getAccessTokenString() );
+			return httpClient.postObject(url, menu, StatusResponse.class);
+		} else {
+			LOGGER.error("No Access token provided. Giving up.");
+		}
+		return ret;
 	}
 	
 }

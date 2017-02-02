@@ -16,7 +16,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.madtribe.wechat.core.client.errors.WeChatResponseError;
-import org.madtribe.wechat.core.client.responses.ErrorResponse;
+import org.madtribe.wechat.core.client.responses.StatusResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,8 +74,8 @@ public class DefaultHttpRequestUtils implements IHttpRequestUtils {
 
 
 	@Override
-	public void postObject(String url, Object object) {
-		//Object to JSON in String
+    public <ENTITY_TYPE> Optional<ENTITY_TYPE> postObject(String url, Object object, Class<ENTITY_TYPE> class1) throws WeChatResponseError {
+    	Optional<ENTITY_TYPE> ret = Optional.empty();
 		try {
 			String jsonInString = objectMapper.writeValueAsString(object);
 			
@@ -91,15 +91,16 @@ public class DefaultHttpRequestUtils implements IHttpRequestUtils {
 			try(CloseableHttpResponse response2 = httpClient.execute(httpPost)) {
 			    
 			    HttpEntity entity2 = response2.getEntity();
-			    String entiryAsString =  EntityUtils.toString(httpEntity);
+			    String entiryAsString =  EntityUtils.toString(entity2);
 				LOGGER.info("GET response is {}  --- status line is {}", entiryAsString, response2.getStatusLine().toString());
-				
+				ret = parseEntityToObject(class1, ret, entiryAsString);
 			    EntityUtils.consume(entity2);
 			}
 		} catch (IOException e) {
 			LOGGER.error("Error sending get request",e);
 		}
 		
+		return ret;
 	}
 	
 	
@@ -151,16 +152,16 @@ public class DefaultHttpRequestUtils implements IHttpRequestUtils {
 
 
 	private <ENTITY_TYPE> Optional<ENTITY_TYPE> parseEntityToObject(Class<ENTITY_TYPE> class1,
-			Optional<ENTITY_TYPE> ret, String entiryAsString)
+			Optional<ENTITY_TYPE> ret, String entityAsString)
 			throws IOException, JsonParseException, JsonMappingException, WeChatResponseError {
 		try {
-			LOGGER.debug("Attempting to parse response {} as {}",entiryAsString, class1);
-			ENTITY_TYPE entityObject = objectMapper.readValue(entiryAsString, class1);
+			LOGGER.debug("Attempting to parse response {} as {}",entityAsString, class1);
+			ENTITY_TYPE entityObject = objectMapper.readValue(entityAsString, class1);
 		
 			ret = Optional.of(entityObject);
 		} catch (JsonMappingException jsonMappingException){
-			LOGGER.error("Error occurred will try to parse respose as ErrorResponse");
-			ErrorResponse errorEntity = objectMapper.readValue(entiryAsString, ErrorResponse.class);
+			LOGGER.error("Error occurred will try to parse respose as StatusResponse");
+			StatusResponse errorEntity = objectMapper.readValue(entityAsString, StatusResponse.class);
 			WeChatResponseError exception = new WeChatResponseError(errorEntity);
 			throw exception;
 		}

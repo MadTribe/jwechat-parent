@@ -8,9 +8,11 @@ import javax.inject.Inject;
 import org.madtribe.wechat.core.client.accesstoken.AccessToken;
 import org.madtribe.wechat.core.client.accesstoken.DefaultAccessTokenProvider;
 import org.madtribe.wechat.core.client.errors.WeChatResponseError;
+import org.madtribe.wechat.core.client.menu.Menu;
 import org.madtribe.wechat.core.client.messages.CustomerServiceMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
+import org.madtribe.wechat.core.client.responses.StatusResponse;
 
 
 public class WechatAPI {
@@ -37,6 +39,13 @@ public class WechatAPI {
 		return wechatAPIClient.uploadTemporaryMedia(accessToken, inputStream, type);
 	
 	}
+	
+	public Optional<StatusResponse> createMenu(Menu menu) throws WeChatResponseError{
+		Optional<AccessToken> accessToken = wechatAPIClient.requestNewAccessToken();
+		
+		return wechatAPIClient.createMenu(accessToken, menu);
+	
+	}	
 	
 	
 }

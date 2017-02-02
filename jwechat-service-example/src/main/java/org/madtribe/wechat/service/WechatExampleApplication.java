@@ -5,6 +5,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import javax.ws.rs.core.Response;
@@ -12,6 +13,8 @@ import javax.ws.rs.core.Response;
 import org.madtribe.wechat.core.client.WechatAPI;
 import org.madtribe.wechat.core.client.accesstoken.AccessToken;
 import org.madtribe.wechat.core.client.errors.WeChatResponseError;
+import org.madtribe.wechat.core.client.menu.ViewButton;
+import org.madtribe.wechat.core.client.menu.Menu;
 import org.madtribe.wechat.core.client.messages.CustomerServiceImageMessage;
 import org.madtribe.wechat.core.client.messages.CustomerServiceTextMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
@@ -67,6 +70,11 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
 				.uploadTemporaryMedia(this.getClass().getResourceAsStream("/ball.jpg"), MediaType.image);
 
 
+		Menu menu = new Menu(Arrays.asList(new ViewButton("Baidu","http://baidu.com")));
+		
+		wechatAPI.createMenu(menu);
+		
+		
 		// This is where you can register your WeChat message hanlders.
 		// These can obviously be put in other classes as required.
 		entryPoint.handle("text", (InboundRequest message) -> {
