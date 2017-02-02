@@ -12,6 +12,7 @@ import org.madtribe.wechat.core.client.messages.CustomerServiceMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
 import org.madtribe.wechat.core.client.responses.StatusResponse;
+import org.madtribe.wechat.core.client.responses.UserDetails;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,11 @@ public class WechatAPIClient {
 			LOGGER.error("No Access token provided. Giving up.");
 		}
 		return ret;
+	}
+
+	public Optional<UserDetails> getUserDetails(Optional<AccessToken> accessToken, String openId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
