@@ -5,8 +5,6 @@ import java.util.Date;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.madtribe.wechat.core.client.messages.MediaType;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -15,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author paulsmout
  *
  */
-public class ErrorResponse {
+public class StatusResponse {
 
 	@Valid
     @NotNull
@@ -36,11 +34,11 @@ public class ErrorResponse {
 	}
 	
 
-	public ErrorResponse() {
+	public StatusResponse() {
 		super();
 	}
 
-	public ErrorResponse(int errCode, String errMessage) {
+	public StatusResponse(int errCode, String errMessage) {
 		super();
 		this.errCode = errCode;
 		this.errMessage = errMessage;
@@ -56,7 +54,7 @@ public class ErrorResponse {
 
 	@Override
 	public String toString() {
-		return "ErrorResponse [errCode=" + errCode + ", errMessage=" + errMessage + "]";
+		return "StatusResponse [errCode=" + errCode + ", errMessage=" + errMessage + "]";
 	}
 	
 

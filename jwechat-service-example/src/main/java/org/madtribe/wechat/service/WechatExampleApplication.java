@@ -5,6 +5,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import javax.ws.rs.core.Response;
@@ -12,6 +13,17 @@ import javax.ws.rs.core.Response;
 import org.madtribe.wechat.core.client.WechatAPI;
 import org.madtribe.wechat.core.client.accesstoken.AccessToken;
 import org.madtribe.wechat.core.client.errors.WeChatResponseError;
+import org.madtribe.wechat.core.client.menu.ViewButton;
+import org.madtribe.wechat.core.client.menu.ViewLimitedButton;
+import org.madtribe.wechat.core.client.menu.LocationSelectButton;
+import org.madtribe.wechat.core.client.menu.MediaIdButton;
+import org.madtribe.wechat.core.client.menu.Menu;
+import org.madtribe.wechat.core.client.menu.PicPhotoOrAlbumButton;
+import org.madtribe.wechat.core.client.menu.PicSysPhotoButton;
+import org.madtribe.wechat.core.client.menu.PicWeixinButton;
+import org.madtribe.wechat.core.client.menu.ScanCodePushButton;
+import org.madtribe.wechat.core.client.menu.ScanCodeWaitMsgButton;
+import org.madtribe.wechat.core.client.menu.SubMenu;
 import org.madtribe.wechat.core.client.messages.CustomerServiceImageMessage;
 import org.madtribe.wechat.core.client.messages.CustomerServiceTextMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
@@ -67,6 +79,31 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
 				.uploadTemporaryMedia(this.getClass().getResourceAsStream("/ball.jpg"), MediaType.image);
 
 
+		Menu menu = new Menu(Arrays.asList(
+									new SubMenu("Search Engines",
+											    Arrays.asList(new ViewButton("Baidu","http://baidu.com")
+												   		     // new MediaIdButton("MediaIdButton",mediaIdOpt.get().getMediaId()),
+												   		     /* new ViewLimitedButton("ViewLimitedButton",mediaIdOpt.get().getMediaId())*/)
+											    ),
+									new SubMenu("System",
+										    Arrays.asList(new ScanCodePushButton("ScanCodePushButton","key1"), 
+											   		      new ScanCodeWaitMsgButton("ScanCodeWaitMsgButton","key2"),
+											   		      new LocationSelectButton("LocationSelectButton","key6"))
+										    ),
+									new SubMenu("More",
+										    Arrays.asList(new PicSysPhotoButton("PicSysPhotoButton","key3"),
+											   		      new PicPhotoOrAlbumButton("PicPhotoOrAlbumButton","key4"),
+											   		      new PicWeixinButton("PicWeixinButton","key5")
+											   		      
+										    )
+									)
+				));
+		
+		
+		
+		wechatAPI.createMenu(menu);
+		
+		
 		// This is where you can register your WeChat message hanlders.
 		// These can obviously be put in other classes as required.
 		entryPoint.handle("text", (InboundRequest message) -> {

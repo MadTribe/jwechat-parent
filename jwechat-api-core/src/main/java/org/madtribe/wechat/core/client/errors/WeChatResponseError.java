@@ -1,13 +1,13 @@
 package org.madtribe.wechat.core.client.errors;
 
-import org.madtribe.wechat.core.client.responses.ErrorResponse;
+import org.madtribe.wechat.core.client.responses.StatusResponse;
 
 public class WeChatResponseError extends Exception{
 	private static final long serialVersionUID = 1L;
 
-	private ErrorResponse errorResponse;
+	private StatusResponse errorResponse;
 
-	public WeChatResponseError(ErrorResponse errorResponse) {
+	public WeChatResponseError(StatusResponse errorResponse) {
 		super();
 		this.errorResponse = errorResponse;
 	}
@@ -16,7 +16,7 @@ public class WeChatResponseError extends Exception{
 		super();
 	}
 
-	public ErrorResponse getErrorResponse() {
+	public StatusResponse getErrorResponse() {
 		return errorResponse;
 	}
 
