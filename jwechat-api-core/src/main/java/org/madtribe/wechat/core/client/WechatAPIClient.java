@@ -12,6 +12,7 @@ import org.madtribe.wechat.core.client.messages.CustomerServiceMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
 import org.madtribe.wechat.core.client.responses.StatusResponse;
+import org.madtribe.wechat.core.client.responses.UserDetails;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +58,18 @@ public class WechatAPIClient {
 			String createMenuForAccessToken = config.getWechatURLsConfig().getCreateMenuForAccessToken();
 			String url = String.format(createMenuForAccessToken, accessToken.get().getAccessTokenString() );
 			return httpClient.postObject(url, menu, StatusResponse.class);
+		} else {
+			LOGGER.error("No Access token provided. Giving up.");
+		}
+		return ret;
+	}
+
+	public Optional<UserDetails> getUserDetails(Optional<AccessToken> accessToken, String openId) throws WeChatResponseError {
+		Optional<UserDetails>  ret = Optional.empty();
+		if (accessToken.isPresent()){
+			String userDetailsForAccessTokenOpenIdandLang = config.getWechatURLsConfig().getUserDetailsForAccessTokenOpenIdandLang();
+			String url = String.format(userDetailsForAccessTokenOpenIdandLang, accessToken.get().getAccessTokenString(), openId, "zh_CN"  );
+			return httpClient.getAsObject(url, UserDetails.class);
 		} else {
 			LOGGER.error("No Access token provided. Giving up.");
 		}
