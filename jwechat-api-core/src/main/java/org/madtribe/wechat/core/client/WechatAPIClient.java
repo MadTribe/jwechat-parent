@@ -64,9 +64,16 @@ public class WechatAPIClient {
 		return ret;
 	}
 
-	public Optional<UserDetails> getUserDetails(Optional<AccessToken> accessToken, String openId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<UserDetails> getUserDetails(Optional<AccessToken> accessToken, String openId) throws WeChatResponseError {
+		Optional<UserDetails>  ret = Optional.empty();
+		if (accessToken.isPresent()){
+			String userDetailsForAccessTokenOpenIdandLang = config.getWechatURLsConfig().getUserDetailsForAccessTokenOpenIdandLang();
+			String url = String.format(userDetailsForAccessTokenOpenIdandLang, accessToken.get().getAccessTokenString(), openId, "zh_CN"  );
+			return httpClient.getAsObject(url, UserDetails.class);
+		} else {
+			LOGGER.error("No Access token provided. Giving up.");
+		}
+		return ret;
 	}
 	
 }

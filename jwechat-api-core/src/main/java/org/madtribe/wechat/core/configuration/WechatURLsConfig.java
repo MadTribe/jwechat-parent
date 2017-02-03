@@ -23,6 +23,8 @@ public class WechatURLsConfig {
     private String addMaterialforAccessTokenAndType = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s";
 
 	private String createMenuForAccessToken =  "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s";
+
+	private String userDetailsForAccessTokenOpenIdandLang = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=%s";
 	
 	
 	public String getTokenUrlforAppIdAndAppSecret() {
@@ -42,6 +44,11 @@ public class WechatURLsConfig {
 
 	public String getCreateMenuForAccessToken() {
 		return createMenuForAccessToken;
+	}
+
+
+	public String getUserDetailsForAccessTokenOpenIdandLang() {
+		return userDetailsForAccessTokenOpenIdandLang;
 	}
 	
 
