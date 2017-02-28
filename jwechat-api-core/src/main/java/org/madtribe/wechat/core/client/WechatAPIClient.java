@@ -13,6 +13,7 @@ import org.madtribe.wechat.core.client.messages.MediaType;
 import org.madtribe.wechat.core.client.messages.OAuth2AccessToken;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
 import org.madtribe.wechat.core.client.responses.StatusResponse;
+import org.madtribe.wechat.core.client.responses.UserDetails;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,6 +73,18 @@ public class WechatAPIClient {
 									code);
 		Optional<OAuth2AccessToken> accesToken = httpClient.getAsObject(url,OAuth2AccessToken.class);
 		return accesToken;
+	}
+
+	public Optional<UserDetails> getUserDetails(Optional<AccessToken> accessToken, String openId) throws WeChatResponseError {
+		Optional<UserDetails>  ret = Optional.empty();
+		if (accessToken.isPresent()){
+			String userDetailsForAccessTokenOpenIdandLang = config.getWechatURLsConfig().getUserDetailsForAccessTokenOpenIdandLang();
+			String url = String.format(userDetailsForAccessTokenOpenIdandLang, accessToken.get().getAccessTokenString(), openId, "zh_CN"  );
+			return httpClient.getAsObject(url, UserDetails.class);
+		} else {
+			LOGGER.error("No Access token provided. Giving up.");
+		}
+		return ret;
 	}
 	
 	

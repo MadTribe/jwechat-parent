@@ -13,6 +13,7 @@ import org.madtribe.wechat.core.client.messages.CustomerServiceMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
 import org.madtribe.wechat.core.client.responses.StatusResponse;
+import org.madtribe.wechat.core.client.responses.UserDetails;
 
 /**
  * This class contains the user accessible Wechat functions. 
@@ -50,6 +51,13 @@ public class WechatAPI {
 		Optional<AccessToken> accessToken = wechatAPIClient.requestNewAccessToken();
 		
 		return wechatAPIClient.createMenu(accessToken, menu);
+	
+	}	
+
+	public Optional<UserDetails> getUserDetails(String openId) throws WeChatResponseError{
+		Optional<AccessToken> accessToken = wechatAPIClient.requestNewAccessToken();
+		
+		return wechatAPIClient.getUserDetails(accessToken, openId);
 	
 	}	
 	

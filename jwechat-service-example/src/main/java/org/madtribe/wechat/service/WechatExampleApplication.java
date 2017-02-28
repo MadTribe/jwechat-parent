@@ -28,6 +28,7 @@ import org.madtribe.wechat.core.client.messages.CustomerServiceImageMessage;
 import org.madtribe.wechat.core.client.messages.CustomerServiceTextMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
+import org.madtribe.wechat.core.client.responses.UserDetails;
 import org.madtribe.wechat.core.constants.MessageTypes;
 import org.madtribe.wechat.core.container.JWeChatContanerMain;
 import org.madtribe.wechat.core.jersey.entityproviders.WeChatInboundRequestEntityProvider;
@@ -121,6 +122,13 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
 					wechatAPI.sendCustomerServiceMessage(new CustomerServiceTextMessage(message.getSender(), "No media available "));
 				}
 
+				Optional<UserDetails> optUserDetails = wechatAPI.getUserDetails(message.getSender());
+				
+				System.out.println(optUserDetails.orElse(null));
+				
+				if (optUserDetails.isPresent()){
+					return Response.ok(new TextMessageResponse(message, "Happy Year of the Rooster " + optUserDetails.get().getNickname() + "!")).build();
+				}
 			} catch (WeChatResponseError e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
