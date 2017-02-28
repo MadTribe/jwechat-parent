@@ -9,6 +9,8 @@ import org.madtribe.wechat.core.client.accesstoken.IAccessTokenStorage;
 import org.madtribe.wechat.core.client.accesstoken.InMemoryAccessTokenHolder;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
 import org.madtribe.wechat.core.messageparserregistry.*;
+import org.madtribe.wechat.core.oauth2.DebugStateHandler;
+import org.madtribe.wechat.core.oauth2.OAuth2UserStateHandler;
 import org.madtribe.wechat.core.streamparsers.WeChatInboundMessageParser;
 import org.madtribe.wechat.core.streamparsers.WeChatOutboundResponseWriter;
 import org.madtribe.wechat.core.wc3.messageparsers.WeChatInboundRequestW3CParser;
@@ -35,9 +37,14 @@ public class WeChatModule extends AbstractModule {
     	bind(WeChatInboundMessageParser.class).to(WeChatInboundRequestW3CParser.class);
     	bind(MessagePayloadWriterRegistry.class).to(DefaultPayloadWriterRegistry.class);
         bind(WeChatConfiguration.class).toInstance(configuration);
-        bind(WeChatOutboundResponseWriter.class).to(InboundResponseMessageWriter.class);    	
+        bind(WeChatOutboundResponseWriter.class).to(InboundResponseMessageWriter.class);   
+        configureOAuth2StateHandler();
         configureClient();
     }
+
+	protected void configureOAuth2StateHandler() {
+		bind(OAuth2UserStateHandler.class).to(DebugStateHandler.class);
+	}
 
     protected void configureClient(){
         bind(IHttpRequestUtils.class).to(DefaultHttpRequestUtils.class);

@@ -24,7 +24,14 @@ public class WechatURLsConfig {
 
 	private String createMenuForAccessToken =  "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s";
 
+
+	private String oAuth2URLForAppIdRedirectUriScopeAndState = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect";
+
+
+	private String oAuth2AccessTokenURLForAppIdSecretAndCode = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code";
+
 	private String userDetailsForAccessTokenOpenIdandLang = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=%s";
+
 	
 	
 	public String getTokenUrlforAppIdAndAppSecret() {
@@ -46,9 +53,18 @@ public class WechatURLsConfig {
 		return createMenuForAccessToken;
 	}
 
+	public String getOAuth2URLForAppIdRedirectUriScopeAndStateL() {
+		return oAuth2URLForAppIdRedirectUriScopeAndState ;
+	}
 
+
+	public String getOAuth2AccessTokenURLForAppIdSecretAndCode() {
+		return oAuth2AccessTokenURLForAppIdSecretAndCode;
+  }
+    
 	public String getUserDetailsForAccessTokenOpenIdandLang() {
 		return userDetailsForAccessTokenOpenIdandLang;
+
 	}
 	
 

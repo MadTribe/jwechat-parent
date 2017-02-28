@@ -38,6 +38,7 @@ import org.madtribe.wechat.core.messages.TextMessage;
 import org.madtribe.wechat.core.messages.inbound.request.InboundRequest;
 import org.madtribe.wechat.core.messages.inbound.response.InboundResponse;
 import org.madtribe.wechat.core.messages.inbound.response.TextMessageResponse;
+import org.madtribe.wechat.core.resources.OAuth2EntryPoint;
 import org.madtribe.wechat.core.resources.WeChatEntryPoint;
 import org.madtribe.wechat.service.resources.RootResource;
 import org.slf4j.Logger;
@@ -148,6 +149,7 @@ public class WechatExampleApplication extends Application<WechatExampleConfig> {
 		WeChatEntryPoint entryPoint = guiceMain.get(WeChatEntryPoint.class);
 		environment.jersey().register(guiceMain.get(WeChatInboundRequestEntityProvider.class));
 		environment.jersey().register(guiceMain.get(WeChatOutboundResponseEntityProvider.class));
+		environment.jersey().register(guiceMain.get(OAuth2EntryPoint.class));
 		environment.jersey().register(entryPoint);
 		return entryPoint;
 	}
