@@ -10,6 +10,7 @@ import org.madtribe.wechat.core.client.errors.WeChatResponseError;
 import org.madtribe.wechat.core.client.menu.Menu;
 import org.madtribe.wechat.core.client.messages.CustomerServiceMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
+import org.madtribe.wechat.core.client.messages.OAuth2AccessToken;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
 import org.madtribe.wechat.core.client.responses.StatusResponse;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
@@ -61,6 +62,17 @@ public class WechatAPIClient {
 			LOGGER.error("No Access token provided. Giving up.");
 		}
 		return ret;
+	} 
+	
+	public Optional<OAuth2AccessToken> requestOAuth2AccessToken(String code) throws WeChatResponseError {
+		String oAuth2AccessTokenURLForAppIdSecretAndCode = config.getWechatURLsConfig().getOAuth2AccessTokenURLForAppIdSecretAndCode();
+		String url = String.format(oAuth2AccessTokenURLForAppIdSecretAndCode,
+									config.getWeChatAppId(),
+									config.getWeChatAppSecret(),
+									code);
+		Optional<OAuth2AccessToken> accesToken = httpClient.getAsObject(url,OAuth2AccessToken.class);
+		return accesToken;
 	}
+	
 	
 }

@@ -24,7 +24,7 @@ export DOCKER_FOLDER=$SERVICE_HOME/docker
 
 
 pushd $SERVICE_HOME/..
-mvn package -DskipTests=true
+mvn package -DskipTests=true -o
 popd
 
 docker-compose -f $DOCKER_FOLDER/docker-compose.yml stop

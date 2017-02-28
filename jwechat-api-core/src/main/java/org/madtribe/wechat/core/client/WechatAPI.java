@@ -14,7 +14,13 @@ import org.madtribe.wechat.core.client.messages.MediaType;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
 import org.madtribe.wechat.core.client.responses.StatusResponse;
 
-
+/**
+ * This class contains the user accessible Wechat functions. 
+ * Most implementation is delegated to WechatAPIClient which also contains non user facing functions. 
+ *
+ * @author paulsmout
+ *
+ */
 public class WechatAPI {
 	@Inject 
 	private WechatAPIClient wechatAPIClient;
