@@ -1,10 +1,5 @@
 package org.madtribe.wechat.core.client;
 
-import java.io.InputStream;
-import java.util.Optional;
-
-import javax.inject.Inject;
-
 import org.madtribe.wechat.core.client.accesstoken.AccessToken;
 import org.madtribe.wechat.core.client.accesstoken.DefaultAccessTokenProvider;
 import org.madtribe.wechat.core.client.errors.WeChatResponseError;
@@ -14,6 +9,10 @@ import org.madtribe.wechat.core.client.messages.MediaType;
 import org.madtribe.wechat.core.client.responses.MediaUploadResponse;
 import org.madtribe.wechat.core.client.responses.StatusResponse;
 import org.madtribe.wechat.core.client.responses.UserDetails;
+
+import javax.inject.Inject;
+import java.io.InputStream;
+import java.util.Optional;
 
 /**
  * This class contains the user accessible Wechat functions. 
@@ -30,7 +29,6 @@ public class WechatAPI {
 	private DefaultAccessTokenProvider accessTokenProvider;
 
 	public Optional<AccessToken> getAccessToken() {
-		
 		return accessTokenProvider.obtainToken();
 	}
 
@@ -58,7 +56,6 @@ public class WechatAPI {
 		Optional<AccessToken> accessToken = wechatAPIClient.requestNewAccessToken();
 		
 		return wechatAPIClient.getUserDetails(accessToken, openId);
-	
 	}	
 	
 	
