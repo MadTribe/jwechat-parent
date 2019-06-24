@@ -1,12 +1,8 @@
 package org.madtribe.wechat.core.client;
 
-import java.io.InputStream;
-import java.util.Optional;
-
-import javax.inject.Inject;
-
 import org.madtribe.wechat.core.client.accesstoken.AccessToken;
 import org.madtribe.wechat.core.client.errors.WeChatResponseError;
+import org.madtribe.wechat.core.client.jsapi.JSAPITicket;
 import org.madtribe.wechat.core.client.menu.Menu;
 import org.madtribe.wechat.core.client.messages.CustomerServiceMessage;
 import org.madtribe.wechat.core.client.messages.MediaType;
@@ -17,6 +13,10 @@ import org.madtribe.wechat.core.client.responses.UserDetails;
 import org.madtribe.wechat.core.configuration.WeChatConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.inject.Inject;
+import java.io.InputStream;
+import java.util.Optional;
 
 public class WechatAPIClient {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHttpRequestUtils.class);
@@ -31,6 +31,18 @@ public class WechatAPIClient {
 		String url = String.format(tokenUrlforAppIdAndAppSecret, config.getWeChatAppId(), config.getWeChatAppSecret());
 		Optional<AccessToken> accesToken = httpClient.getAsObject(url,AccessToken.class);
 		return accesToken;
+	}
+
+	public Optional<JSAPITicket> requestJSAPITicket(Optional<AccessToken> accessToken) throws WeChatResponseError {
+		String jSAPITicketForAccessToken = config.getWechatURLsConfig().getJSAPITicketForAccessToken();
+        Optional<JSAPITicket> optionalJsapiTicket = Optional.empty();
+        if (accessToken.isPresent()) {
+            String url = String.format(jSAPITicketForAccessToken, accessToken.get().getAccessTokenString());
+            optionalJsapiTicket = httpClient.getAsObject(url,JSAPITicket.class);
+        } else {
+            LOGGER.error("No Access token provided. Giving up.");
+        }
+		return optionalJsapiTicket;
 	}
 
 	public Optional<StatusResponse> sendMessage(Optional<AccessToken> accessToken, CustomerServiceMessage message) throws WeChatResponseError {
@@ -86,6 +98,7 @@ public class WechatAPIClient {
 		}
 		return ret;
 	}
-	
-	
+
+
+
 }

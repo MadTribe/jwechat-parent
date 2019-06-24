@@ -1,9 +1,9 @@
 package org.madtribe.wechat.core.configuration;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class WechatURLsConfig {
 
@@ -22,7 +22,9 @@ public class WechatURLsConfig {
 	@JsonProperty
     private String addMaterialforAccessTokenAndType = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s";
 
-	private String createMenuForAccessToken =  "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s";
+	private String createMenuForAccessToken =  "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=";
+
+	private String jSAPITicketForAccessToken = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi";
 
 
 	private String oAuth2URLForAppIdRedirectUriScopeAndState = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect";
@@ -32,7 +34,6 @@ public class WechatURLsConfig {
 
 	private String userDetailsForAccessTokenOpenIdandLang = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=%s";
 
-	
 	
 	public String getTokenUrlforAppIdAndAppSecret() {
 		return tokenUrlforAppIdAndAppSecret;
@@ -58,9 +59,13 @@ public class WechatURLsConfig {
 	}
 
 
+	public String getJSAPITicketForAccessToken() {
+		return jSAPITicketForAccessToken;
+	}
+
 	public String getOAuth2AccessTokenURLForAppIdSecretAndCode() {
 		return oAuth2AccessTokenURLForAppIdSecretAndCode;
-  }
+    }
     
 	public String getUserDetailsForAccessTokenOpenIdandLang() {
 		return userDetailsForAccessTokenOpenIdandLang;
