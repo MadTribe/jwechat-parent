@@ -18,7 +18,7 @@
     <version.jdk>1.8</version.jdk>
     <version.guice>4.0</version.guice>
     <version.jersey>1.18.3</version.jersey>
-    <version.h2>1.4.185</version.h2>
+    <version.h2>2.0.206</version.h2>
     <version.spring-context>3.1.1.RELEASE</version.spring-context>
     <version.guice-repository>2.1.0</version.guice-repository>
     <jackson.version>2.1.4</jackson.version>
